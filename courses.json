@@ -196,7 +196,7 @@
   },
   {
     "id": "white-pines-east-course-bensenville",
-    "name": "White Pines \u2013 East Course",
+    "name": "White Pines – East Course",
     "city": "Bensenville",
     "state": "IL",
     "type": "Daily-fee (public)",
@@ -219,7 +219,7 @@
   },
   {
     "id": "white-pines-west-course-bensenville",
-    "name": "White Pines \u2013 West Course",
+    "name": "White Pines – West Course",
     "city": "Bensenville",
     "state": "IL",
     "type": "Daily-fee (public)",
@@ -264,7 +264,7 @@
   },
   {
     "id": "harborside-port-course-chicago",
-    "name": "Harborside \u2013 Port Course",
+    "name": "Harborside – Port Course",
     "city": "Chicago",
     "state": "IL",
     "type": "Daily-fee (public)",
@@ -287,7 +287,7 @@
   },
   {
     "id": "harborside-starboard-course-chicago",
-    "name": "Harborside \u2013 Starboard Course",
+    "name": "Harborside – Starboard Course",
     "city": "Chicago",
     "state": "IL",
     "type": "Daily-fee (public)",
@@ -928,7 +928,7 @@
   },
   {
     "id": "gleneagles-red-course-lemont",
-    "name": "Gleneagles \u2013 Red Course",
+    "name": "Gleneagles – Red Course",
     "city": "Lemont",
     "state": "IL",
     "type": "Daily-fee (public)",
@@ -950,7 +950,7 @@
   },
   {
     "id": "gleneagles-white-course-lemont",
-    "name": "Gleneagles \u2013 White Course",
+    "name": "Gleneagles – White Course",
     "city": "Lemont",
     "state": "IL",
     "type": "Daily-fee (public)",
@@ -1060,7 +1060,7 @@
   },
   {
     "id": "silver-lake-north-course-orland-park",
-    "name": "Silver Lake \u2013 North Course",
+    "name": "Silver Lake – North Course",
     "city": "Orland Park",
     "state": "IL",
     "type": "Daily-fee (public)",
@@ -1083,7 +1083,7 @@
   },
   {
     "id": "silver-lake-south-course-orland-park",
-    "name": "Silver Lake \u2013 South Course",
+    "name": "Silver Lake – South Course",
     "city": "Orland Park",
     "state": "IL",
     "type": "Daily-fee (public)",
@@ -1455,7 +1455,7 @@
   },
   {
     "id": "st-andrews-st-andrews-course-west-chicago",
-    "name": "St. Andrews \u2013 St. Andrews Course",
+    "name": "St. Andrews – St. Andrews Course",
     "city": "West Chicago",
     "state": "IL",
     "type": "Daily-fee (public)",
@@ -1478,7 +1478,7 @@
   },
   {
     "id": "st-andrews-joe-jemsek-course-west-chicago",
-    "name": "St. Andrews \u2013 Joe Jemsek Course",
+    "name": "St. Andrews – Joe Jemsek Course",
     "city": "West Chicago",
     "state": "IL",
     "type": "Daily-fee (public)",
@@ -1653,7 +1653,7 @@
   },
   {
     "id": "green-garden-blue-course-frankfort",
-    "name": "Green Garden \u2013 Blue Course",
+    "name": "Green Garden – Blue Course",
     "city": "Frankfort",
     "state": "IL",
     "type": "Daily-fee (public)",
@@ -1675,7 +1675,7 @@
   },
   {
     "id": "green-garden-gold-course-frankfort",
-    "name": "Green Garden \u2013 Gold Course",
+    "name": "Green Garden – Gold Course",
     "city": "Frankfort",
     "state": "IL",
     "type": "Daily-fee (public)",
@@ -1719,7 +1719,7 @@
   },
   {
     "id": "countryside-prairie-course-mundelein",
-    "name": "Countryside \u2013 Prairie Course",
+    "name": "Countryside – Prairie Course",
     "city": "Mundelein",
     "state": "IL",
     "type": "County / Forest Preserve",
@@ -1741,7 +1741,7 @@
   },
   {
     "id": "countryside-traditional-course-mundelein",
-    "name": "Countryside \u2013 Traditional Course",
+    "name": "Countryside – Traditional Course",
     "city": "Mundelein",
     "state": "IL",
     "type": "County / Forest Preserve",
@@ -2956,7 +2956,7 @@
   },
   {
     "id": "brighton-dale-blue-spruce-course-kansasville",
-    "name": "Brighton Dale \u2013 Blue Spruce Course",
+    "name": "Brighton Dale – Blue Spruce Course",
     "city": "Kansasville",
     "state": "WI",
     "type": "County / Forest Preserve",
@@ -2978,7 +2978,7 @@
   },
   {
     "id": "brighton-dale-red-pine-course-kansasville",
-    "name": "Brighton Dale \u2013 Red Pine Course",
+    "name": "Brighton Dale – Red Pine Course",
     "city": "Kansasville",
     "state": "WI",
     "type": "County / Forest Preserve",
@@ -2997,5 +2997,28 @@
     "booking_window_days": null,
     "booking_source": "course site, system confirmed",
     "facility": "Brighton Dale Links"
+  },
+  {
+    "id": "lost-marsh-hammond",
+    "name": "Lost Marsh",
+    "city": "Hammond",
+    "state": "IN",
+    "type": "Municipal / Park District",
+    "holes": 18,
+    "drive_min_est": 29,
+    "status": "open",
+    "booking_system": "TeeItUp (embedded on course site)",
+    "booking_family": "GolfNow family",
+    "booking_url": "https://lost-marsh-golf-course.book.teeitup.com/",
+    "golfnow_listed": true,
+    "timezone": "America/Chicago",
+    "lat": 41.661194,
+    "lon": -87.503408,
+    "notes": "Hammond IN 18; course site lostmarshgolf.com/teetimes; times open ~14 days ahead",
+    "verified": "verified 2026-09",
+    "booking_window_days": 14,
+    "booking_source": "course site, system confirmed",
+    "teeitup_alias": "lost-marsh-golf-course",
+    "golfnow_facility_id": 10271
   }
 ]
