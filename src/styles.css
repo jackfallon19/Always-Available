@@ -73,3 +73,9 @@ footer { margin-top: 20px; color: var(--muted); font-size: 13px; }
 .tag { font-size: 12px; color: var(--muted); text-align: right; flex: 0 0 auto; max-width: 45%; }
 .tag.ok { color: var(--accent); font-weight: 600; }
 .tag.link { color: var(--accent); text-decoration: underline; }
+
+.matches li.pickable { padding: 0; }
+.pick-row { all: unset; box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; gap: 12px; width: 100%; padding: 10px 12px; cursor: pointer; }
+.pick-row > div { display: grid; min-width: 0; }
+.pick-row:hover, .pick-row:focus-visible { background: var(--rule); }
+.count { scroll-margin-top: 12px; }

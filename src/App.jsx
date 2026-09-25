@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
 const TZ = 'America/Chicago'
 
@@ -39,6 +39,9 @@ export default function App() {
   const [maxDrive, setMaxDrive] = useState(60)
   const [sort, setSort] = useState('time')
   const [query, setQuery] = useState('')
+  const [selected, setSelected] = useState(null) // a course picked from the finder list
+  const [listOpen, setListOpen] = useState(true)
+  const resultsRef = useRef(null)
   const [lo, setLo] = useState(0)
   const [hi, setHi] = useState(null) // null = no upper limit
 
@@ -108,7 +111,7 @@ export default function App() {
       })
       .sort((a, b) => a.name.localeCompare(b.name))
   }, [data, query])
-  const matchIds = useMemo(() => new Set(matches.map((c) => c.id)), [matches])
+  const matchIds = useMemo(() => new Set(selected ? [selected] : matches.map((c) => c.id)), [matches, selected])
   const perCourse = useMemo(() => {
     const m = new Map()
     for (const t of data?.teeTimes ?? []) m.set(t.courseId, (m.get(t.courseId) ?? 0) + 1)
@@ -116,6 +119,16 @@ export default function App() {
   }, [data])
 
   const searching = query.trim() !== ''
+
+  const pickCourse = (c) => {
+    setSelected(c.id)
+    setQuery(c.name)
+    setListOpen(false)
+  }
+  // once a course is picked, jump down to its tee times
+  useEffect(() => {
+    if (selected) resultsRef.current?.scrollIntoView({ block: 'start' })
+  }, [selected])
 
   const results = useMemo(() => {
     if (!data) return []
@@ -153,26 +166,40 @@ export default function App() {
         <input
           type="search"
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) => {
+            setQuery(e.target.value)
+            setSelected(null)
+            setListOpen(true)
+          }}
+          onFocus={() => setListOpen(true)}
+          onKeyDown={(e) => e.key === 'Escape' && setListOpen(false)}
           placeholder="Find a course or town (e.g. cog hill, glenview)"
           aria-label="Find a course"
         />
-        {query.trim() && (
+        {query.trim() && listOpen && (
           <ul className="matches">
             {matches.length === 0 && <li className="none">No course matches “{query.trim()}”.</li>}
             {matches.map((c) => {
               const n = perCourse.get(c.id) ?? 0
               return (
-                <li key={c.id}>
-                  <div>
-                    <strong>{c.name}</strong>
-                    <small>{c.city} · {c.driveMin} min · {c.system}</small>
-                  </div>
+                <li key={c.id} className={c.searchable ? 'pickable' : ''}>
                   {c.searchable ? (
-                    <span className={n ? 'tag ok' : 'tag'}>
-                      {loading ? '…' : n ? `${n} tee time${n === 1 ? '' : 's'} on this date` : 'none listed this date'}
-                    </span>
-                  ) : c.bookingUrl ? (
+                    <button type="button" className="pick-row" onClick={() => pickCourse(c)}>
+                      <div>
+                        <strong>{c.name}</strong>
+                        <small>{c.city} · {c.driveMin} min · {c.system}</small>
+                      </div>
+                      <span className={n ? 'tag ok' : 'tag'}>
+                        {loading ? '…' : n ? `${n} tee time${n === 1 ? '' : 's'} on this date` : 'none listed this date'}
+                      </span>
+                    </button>
+                  ) : (
+                    <div>
+                      <strong>{c.name}</strong>
+                      <small>{c.city} · {c.driveMin} min · {c.system}</small>
+                    </div>
+                  )}
+                  {c.searchable ? null : c.bookingUrl ? (
                     <a className="tag link" href={c.bookingUrl} target="_blank" rel="noreferrer">Not searchable here · book on their site ↗</a>
                   ) : (
                     <span className="tag">Not searchable · no online booking found</span>
@@ -319,7 +346,7 @@ export default function App() {
 
       {!loading && data && (
         <>
-          <p className="count">
+          <p className="count" ref={resultsRef}>
             {results.length} tee time{results.length === 1 ? '' : 's'} at {courseCount} course{courseCount === 1 ? '' : 's'}
           </p>
           {results.length === 0 && (
