@@ -85,3 +85,21 @@ footer { margin-top: 20px; color: var(--muted); font-size: 13px; }
 .fav.on { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 600; }
 .favbar small { color: var(--muted); }
 .favbar small a { color: var(--accent); }
+
+/* favorites: star buttons, list editor, share banner */
+.star { flex: 0 0 auto; align-self: center; font: 20px/1 inherit; width: 40px; height: 40px; border: 1px solid var(--rule); border-radius: 10px; background: var(--surface); color: var(--muted); cursor: pointer; }
+.star.on { color: var(--accent); border-color: var(--accent); }
+.star:hover, .star:focus-visible { border-color: var(--accent); }
+.results li { display: flex; gap: 8px; align-items: stretch; }
+.results li > a { flex: 1; min-width: 0; }
+.matches .star { margin: 0 8px; width: 34px; height: 34px; font-size: 18px; }
+.favpanel { margin: 0 0 14px; padding: 12px; border: 1px solid var(--rule); border-radius: 10px; background: var(--surface); }
+.favchips { list-style: none; margin: 0 0 8px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.favchips li { display: inline-flex; align-items: center; gap: 4px; padding: 3px 4px 3px 10px; border: 1px solid var(--accent); border-radius: 999px; font-size: 13px; }
+.favchips button { border: 0; background: none; color: var(--muted); font-size: 16px; line-height: 1; cursor: pointer; padding: 0 6px; }
+.favchips button:hover { color: var(--bad); }
+.favpanel .link:disabled { color: var(--muted); text-decoration: none; cursor: default; }
+.sharelink { width: 100%; margin: 6px 0; font: 13px inherit; padding: 8px; border: 1px solid var(--rule); border-radius: 8px; background: var(--bg); color: var(--ink); }
+.banner { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }
+.banner-actions { display: flex; gap: 8px; }
+.matches li.pickable .pick-row { flex: 1; width: auto; min-width: 0; }

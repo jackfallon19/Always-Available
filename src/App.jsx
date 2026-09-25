@@ -30,6 +30,31 @@ const SORTS = {
   drive: (a, b) => a.driveMin - b.driveMin || a.startsAt.localeCompare(b.startsAt),
 }
 
+const readJson = (key) => {
+  try {
+    const v = localStorage.getItem(key)
+    return v == null ? null : JSON.parse(v)
+  } catch {
+    return null
+  }
+}
+const cleanIds = (list) => [...new Set((list ?? []).filter((x) => typeof x === 'string' && /^[a-z0-9-]{1,80}$/.test(x)))].slice(0, 300)
+
+function Star({ on, name, onClick }) {
+  return (
+    <button
+      type="button"
+      className={on ? 'star on' : 'star'}
+      aria-pressed={on}
+      aria-label={`${on ? 'Remove' : 'Add'} ${name} ${on ? 'from' : 'to'} favorites`}
+      title={on ? 'Remove from favorites' : 'Add to favorites'}
+      onClick={onClick}
+    >
+      {on ? '★' : '☆'}
+    </button>
+  )
+}
+
 export default function App() {
   const [date, setDate] = useState(DAYS[1])
   const [players, setPlayers] = useState(4)
@@ -60,6 +85,22 @@ export default function App() {
       return false
     }
   })
+  // The user's own favorites (course ids). null = never customized, so the defaults flagged in courses.json apply.
+  const [custom, setCustom] = useState(() => {
+    const saved = readJson('favoriteCourses')
+    return Array.isArray(saved) ? cleanIds(saved) : null
+  })
+  const [showFavs, setShowFavs] = useState(false)
+  const [shareNote, setShareNote] = useState(null) // 'Link copied' or the link itself when copying is blocked
+  // a favorites link someone sent: /?fav=id1,id2 (offered, never applied silently)
+  const [incoming, setIncoming] = useState(() => {
+    try {
+      const raw = new URLSearchParams(window.location.search).get('fav')
+      return raw == null ? null : cleanIds(raw.split(','))
+    } catch {
+      return null
+    }
+  })
 
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -70,6 +111,19 @@ export default function App() {
       localStorage.setItem('favoritesOnly', favoritesOnly ? '1' : '0')
     } catch {}
   }, [favoritesOnly])
+
+  useEffect(() => {
+    try {
+      if (custom) localStorage.setItem('favoriteCourses', JSON.stringify(custom))
+      else localStorage.removeItem('favoriteCourses')
+    } catch {}
+  }, [custom])
+
+  useEffect(() => {
+    if (new URLSearchParams(window.location.search).has('fav')) {
+      window.history.replaceState(null, '', window.location.pathname + window.location.hash)
+    }
+  }, [])
 
   useEffect(() => {
     try {
@@ -84,11 +138,14 @@ export default function App() {
       return next
     })
 
+  // With Favorites on we ask the server for only the user's list (or the defaults until they customize).
+  const favQuery = favoritesOnly ? (custom ? `&courses=${custom.join(',')}` : '&favorites=1') : ''
+
   useEffect(() => {
     const ctrl = new AbortController()
     setLoading(true)
     setError(null)
-    fetch(`/api/tee-times?date=${date}${favoritesOnly ? '&favorites=1' : ''}`, { signal: ctrl.signal })
+    fetch(`/api/tee-times?date=${date}${favQuery}`, { signal: ctrl.signal })
       .then(async (r) => {
         const body = await r.json().catch(() => ({}))
         if (!r.ok) throw new Error(body.error ?? `HTTP ${r.status}`)
@@ -104,7 +161,39 @@ export default function App() {
         setLoading(false)
       })
     return () => ctrl.abort()
-  }, [date, favoritesOnly])
+  }, [date, favQuery])
+
+  const defaultFavs = useMemo(() => (data?.courses ?? []).filter((c) => c.favorite).map((c) => c.id), [data])
+  const favSet = useMemo(() => new Set(custom ?? defaultFavs), [custom, defaultFavs])
+  const courseById = useMemo(() => new Map((data?.courses ?? []).map((c) => [c.id, c])), [data])
+  const favCourses = useMemo(
+    () => [...favSet].map((id) => courseById.get(id)).filter(Boolean).sort((a, b) => a.name.localeCompare(b.name)),
+    [favSet, courseById],
+  )
+
+  // a shared list may name courses we don't have; only offer (and apply) the ones we do
+  const incomingValid = useMemo(() => (incoming ?? []).filter((id) => courseById.has(id)), [incoming, courseById])
+
+  const toggleFav = (id) =>
+    setCustom((prev) => {
+      const next = new Set(prev ?? defaultFavs)
+      next.has(id) ? next.delete(id) : next.add(id)
+      return [...next]
+    })
+
+  const shareFavorites = async () => {
+    const url = `${window.location.origin}${window.location.pathname}?fav=${favCourses.map((c) => c.id).join(',')}`
+    try {
+      // a blocked or unfocused page can leave writeText pending forever, so don't wait on it for long
+      await Promise.race([
+        navigator.clipboard.writeText(url),
+        new Promise((_, reject) => setTimeout(() => reject(new Error('clipboard timeout')), 1500)),
+      ])
+      setShareNote('Link copied. Send it to a friend to share your list.')
+    } catch {
+      setShareNote(url) // clipboard blocked: show the link so it can be copied by hand
+    }
+  }
 
   // slider top end: highest price in the data, rounded up to $5
   const bound = useMemo(() => {
@@ -213,12 +302,13 @@ export default function App() {
                     </div>
                   )}
                   {c.searched ? null : c.searchable ? (
-                    <span className="tag">Not a favorite · turn off Favorites to search</span>
+                    <span className="tag">Not in your favorites · tap ☆ to add</span>
                   ) : c.bookingUrl ? (
                     <a className="tag link" href={c.bookingUrl} target="_blank" rel="noreferrer">Not searchable here · book on their site ↗</a>
                   ) : (
                     <span className="tag">Not searchable · no online booking found</span>
                   )}
+                  <Star on={favSet.has(c.id)} name={c.name} onClick={() => toggleFav(c.id)} />
                 </li>
               )
             })}
@@ -226,18 +316,43 @@ export default function App() {
         )}
       </div>
 
+      {incoming && data && incomingValid.length > 0 && (
+        <div className="notice banner">
+          <span>Someone shared a favorites list with you ({incomingValid.length} course{incomingValid.length === 1 ? '' : 's'}). Replace yours with it?</span>
+          <span className="banner-actions">
+            <button
+              type="button"
+              className="fav on"
+              onClick={() => {
+                setCustom(incomingValid)
+                setFavoritesOnly(true)
+                setIncoming(null)
+              }}
+            >
+              Use it
+            </button>
+            <button type="button" className="fav" onClick={() => setIncoming(null)}>No thanks</button>
+          </span>
+        </div>
+      )}
+
       <div className="favbar">
         <button type="button" className={favoritesOnly ? 'fav on' : 'fav'} aria-pressed={favoritesOnly} onClick={() => setFavoritesOnly((v) => !v)}>
           <span aria-hidden="true">{favoritesOnly ? '★' : '☆'}</span> Favorites only
         </button>
-        {favoritesOnly && data && (
+        {data && (
+          <button type="button" className="link" onClick={() => setShowFavs((v) => !v)}>
+            {showFavs ? 'Hide' : 'Edit'} my favorites ({favSet.size})
+          </button>
+        )}
+        {favoritesOnly && data && favSet.size > 0 && (
           <small>
-            Searching {data.courses.filter((c) => c.favorite && c.searched).length} favorite courses
-            {data.courses.some((c) => c.favorite && !c.searchable) && (
+            Searching {data.courses.filter((c) => favSet.has(c.id) && c.searched).length} favorite courses
+            {data.courses.some((c) => favSet.has(c.id) && !c.searchable) && (
               <>
                 {' · can’t search: '}
                 {data.courses
-                  .filter((c) => c.favorite && !c.searchable)
+                  .filter((c) => favSet.has(c.id) && !c.searchable)
                   .map((c, i) => (
                     <span key={c.id}>
                       {i > 0 && ', '}
@@ -253,6 +368,29 @@ export default function App() {
           </small>
         )}
       </div>
+
+      {showFavs && data && (
+        <section className="favpanel">
+          {favCourses.length === 0 ? (
+            <p className="sub">No favorites yet. Tap ☆ on any course in the search results or the course finder.</p>
+          ) : (
+            <ul className="favchips">
+              {favCourses.map((c) => (
+                <li key={c.id}>
+                  <span>{c.name}</span>
+                  <button type="button" aria-label={`Remove ${c.name} from favorites`} onClick={() => toggleFav(c.id)}>×</button>
+                </li>
+              ))}
+            </ul>
+          )}
+          <div className="bulk">
+            <button type="button" className="link" onClick={shareFavorites} disabled={favCourses.length === 0}>Copy link to share my favorites</button>
+            <button type="button" className="link" onClick={() => setCustom(null)} disabled={custom === null}>Reset to the default list</button>
+          </div>
+          {shareNote && (shareNote.startsWith('http') ? <input className="sharelink" readOnly value={shareNote} onFocus={(e) => e.target.select()} aria-label="Favorites link" /> : <p className="sub">{shareNote}</p>)}
+          <p className="sub">Saved in this browser only. Use the link to move your list to another device.</p>
+        </section>
+      )}
 
       <div className="days" role="tablist" aria-label="Date">
         {DAYS.map((d, i) => {
@@ -394,7 +532,9 @@ export default function App() {
           </p>
           {results.length === 0 && (
             <p className="notice">
-              {data.teeTimes.length === 0 && !DAYS.includes(date)
+              {favoritesOnly && favSet.size === 0
+                ? 'Your favorites list is empty. Tap ☆ on a course, or turn Favorites off to see everything.'
+                : data.teeTimes.length === 0 && !DAYS.includes(date)
                 ? 'No tee times posted for that date. Most courses only open times about a week ahead, so try again closer to the day.'
                 : 'Nothing matches. Try fewer golfers, a wider time range, a longer drive or a wider price range.'}
             </p>
@@ -416,6 +556,7 @@ export default function App() {
                     <small>{{ true: 'walking', false: 'riding' }[cheapest(t).walking] ?? ''}</small>
                   </div>
                 </a>
+                <Star on={favSet.has(t.courseId)} name={t.course} onClick={() => toggleFav(t.courseId)} />
               </li>
             ))}
           </ul>
