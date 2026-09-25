@@ -160,17 +160,18 @@
     "holes": 18,
     "drive_min_est": 23,
     "status": "open",
-    "booking_system": "TeeItUp",
+    "booking_system": "foreUP",
     "booking_family": "GolfNow family",
-    "booking_url": "https://glenview-park-golf-club.book.teeitup.com/",
+    "booking_url": "https://foreupsoftware.com/index.php/booking/22961/12421#teetimes",
     "golfnow_listed": true,
     "timezone": "America/Chicago",
     "lat": 42.0758,
     "lon": -87.8223,
-    "notes": "Glenview PD 18",
+    "notes": "Glenview PD 18 | books on foreUP (course 22961, schedule 12421); leftover TeeItUp engine is empty",
     "verified": "verified 2026-09",
     "booking_window_days": null,
-    "booking_source": "course site, system confirmed"
+    "booking_source": "course site, system confirmed (user-supplied foreUP link; the TeeItUp engine it also has returns no tee times)",
+    "foreup_schedule_id": 12421
   },
   {
     "id": "winnetka-golf-club-winnetka",

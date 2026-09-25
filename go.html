@@ -1,0 +1,1794 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<base href="/" />
+
+		<noscript>
+			<meta http-equiv="refresh" content="0;URL=/browser/unsupported" />
+		</noscript>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+<script>
+	(function () {
+		var unsupportedBrowserPath = '/browser/unsupported';
+		var currentPath = window.location.pathname || '';
+		var userAgent = window.navigator.userAgent || '';
+
+		if (!unsupportedBrowserPath || currentPath.indexOf(unsupportedBrowserPath) === 0) {
+			return;
+		}
+
+		if (userAgent.toLowerCase().indexOf('pingdom') > -1) {
+			return;
+		}
+
+		function parseVersion(pattern) {
+			var match = userAgent.match(pattern);
+			if (!match) {
+				return null;
+			}
+
+			return [
+				parseInt(match[1], 10),
+				parseInt(match[2] || '0', 10),
+				parseInt(match[3] || '0', 10),
+			];
+		}
+
+		function isVersionLessThan(actual, minimum) {
+			if (actual === null) {
+				return false;
+			}
+
+			for (var index = 0; index < minimum.length; index++) {
+				var actualPart = actual[index] || 0;
+				var minimumPart = minimum[index] || 0;
+
+				if (actualPart < minimumPart) {
+					return true;
+				}
+
+				if (actualPart > minimumPart) {
+					return false;
+				}
+			}
+
+			return false;
+		}
+
+		function redirectToUnsupportedBrowserPage() {
+			var documentElementStyle = document.documentElement && document.documentElement.style;
+			var originalVisibility = documentElementStyle ? documentElementStyle.visibility : '';
+			var originalBackgroundColor = documentElementStyle ? documentElementStyle.backgroundColor : '';
+			var restoreVisibilityTimeoutId = null;
+
+			function restoreDocumentVisibility() {
+				if (!documentElementStyle) {
+					return;
+				}
+
+				documentElementStyle.visibility = originalVisibility;
+				documentElementStyle.backgroundColor = originalBackgroundColor;
+			}
+
+			document.title = 'Redirecting...';
+
+			if (documentElementStyle) {
+				documentElementStyle.visibility = 'hidden';
+				documentElementStyle.backgroundColor = '#fff';
+			}
+
+			restoreVisibilityTimeoutId = window.setTimeout(restoreDocumentVisibility, 1000);
+
+			try {
+				window.location.replace(unsupportedBrowserPath);
+			} catch (error) {
+				if (restoreVisibilityTimeoutId !== null) {
+					window.clearTimeout(restoreVisibilityTimeoutId);
+				}
+
+				restoreDocumentVisibility();
+				window.location.href = unsupportedBrowserPath;
+			}
+		}
+
+		var isInternetExplorer =
+			userAgent.indexOf('MSIE ') > -1 ||
+			userAgent.indexOf('Trident/') > -1 ||
+			typeof document.documentMode !== 'undefined';
+		if (isInternetExplorer) {
+			redirectToUnsupportedBrowserPage();
+			return;
+		}
+
+		var edgeVersion = parseVersion(/(?:Edg|Edge)\/(\d+)(?:\.(\d+))?(?:\.(\d+))?/);
+		if (edgeVersion !== null) {
+			if (isVersionLessThan(edgeVersion, [84, 0, 0])) {
+				redirectToUnsupportedBrowserPage();
+			}
+			return;
+		}
+
+		var samsungVersion = parseVersion(/SamsungBrowser\/(\d+)(?:\.(\d+))?(?:\.(\d+))?/);
+		if (samsungVersion !== null) {
+			if (isVersionLessThan(samsungVersion, [14, 0, 0])) {
+				redirectToUnsupportedBrowserPage();
+			}
+			return;
+		}
+
+		var isIpadOsDesktopMode =
+			userAgent.indexOf('Macintosh') > -1 &&
+			userAgent.indexOf('Mobile/') > -1 &&
+			userAgent.indexOf('Safari/') > -1;
+		if (/iP(hone|ad|od)/.test(userAgent) || isIpadOsDesktopMode) {
+			var iosVersion = parseVersion(/OS (\d+)(?:_(\d+))?(?:_(\d+))?/);
+			if (iosVersion === null && isIpadOsDesktopMode) {
+				iosVersion = parseVersion(/Version\/(\d+)(?:\.(\d+))?(?:\.(\d+))?/);
+			}
+			if (isVersionLessThan(iosVersion, [13, 7, 0])) {
+				redirectToUnsupportedBrowserPage();
+			}
+			return;
+		}
+
+		var firefoxVersion = parseVersion(/Firefox\/(\d+)(?:\.(\d+))?(?:\.(\d+))?/);
+		if (firefoxVersion !== null) {
+			if (isVersionLessThan(firefoxVersion, [87, 0, 0])) {
+				redirectToUnsupportedBrowserPage();
+			}
+			return;
+		}
+
+		var chromeVersion = parseVersion(/Chrome\/(\d+)(?:\.(\d+))?(?:\.(\d+))?/);
+		if (
+			chromeVersion !== null &&
+			userAgent.indexOf('OPR/') === -1 &&
+			userAgent.indexOf('SamsungBrowser/') === -1
+		) {
+			if (isVersionLessThan(chromeVersion, [87, 0, 0])) {
+				redirectToUnsupportedBrowserPage();
+			}
+			return;
+		}
+
+		var isSafari =
+			userAgent.indexOf('Safari/') > -1 &&
+			userAgent.indexOf('Chrome/') === -1 &&
+			userAgent.indexOf('Chromium/') === -1 &&
+			userAgent.indexOf('Android') === -1;
+		if (!isSafari) {
+			return;
+		}
+
+		var safariVersion = parseVersion(/Version\/(\d+)(?:\.(\d+))?(?:\.(\d+))?/);
+		if (isVersionLessThan(safariVersion, [14, 2, 0])) {
+			redirectToUnsupportedBrowserPage();
+		}
+	})();
+</script>
+
+	<meta name="referrer" content="default" />
+	<meta name="site-layout" content="default" />
+	
+<link rel="alternate" href="https://www.golfnow.com/" hreflang="en" />
+<link rel="alternate" href="https://www.golfnow.eu/" hreflang="en-fr" />
+<link rel="alternate" href="https://www.golfnow.eu/" hreflang="en-de" />
+<link rel="alternate" href="https://www.golfnow.eu/" hreflang="en-es" />
+<link rel="alternate" href="https://www.golfnow.eu/" hreflang="en-pt" />
+<link rel="alternate" href="https://www.golfnow.eu/" hreflang="en-ch" />
+<link rel="alternate" href="https://www.golfnow.eu/" hreflang="en-ma" />
+<link rel="alternate" href="https://www.golfnow.eu/" hreflang="en-be" />
+<link rel="alternate" href="https://www.golfnow.eu/" hreflang="en-at" />
+<link rel="alternate" href="https://www.golfnow.eu/" hreflang="en-pl" />
+<link rel="alternate" href="https://www.golfnow.eu/" hreflang="en-nl" />
+<link rel="alternate" href="https://www.golfnow.eu/" hreflang="en-gr" />
+<link rel="alternate" href="https://www.golfnow.com/" hreflang="en-us" />
+<link rel="alternate" href="https://www.golfnow.co.uk/" hreflang="en-gb" />
+<link rel="alternate" href="https://www.golfnow.co.uk/" hreflang="en-ie" />
+<link rel="alternate" href="https://www.golfnow.com.au/" hreflang="en-au" />
+<link rel="alternate" href="https://www.golfnow.com/" hreflang="x-default" />
+
+			<meta http-equiv="delegate-ch" content="sec-ch-dpr https://gqp7knph.cdn.imgeng.in/;
+			ch-viewport-width https://gqp7knph.cdn.imgeng.in/;
+			ch-width https://gqp7knph.cdn.imgeng.in/;
+			ect https://gqp7knph.cdn.imgeng.in/;">
+			<link rel="preconnect" crossorigin href="https://gqp7knph.cdn.imgeng.in/" />
+			<link rel="preconnect" crossorigin href="https://www.golfnow.com/" />
+	<link rel="preconnect" crossorigin href="https://sb.scorecardresearch.com" />
+	<link rel="preconnect" crossorigin href="https://securepubads.g.doubleclick.net" />
+	<link rel="preconnect" crossorigin href="https://static.golfchannel.com" />
+	<link rel="preconnect" crossorigin href="https://cdn.cookielaw.org" />
+	<link rel="preconnect" crossorigin href="https://exddilid.cdn.imgeng.in/" />
+	<link rel="preconnect" crossorigin href="//cds.golfnow.com/" />
+
+	
+
+<meta name="accept-language" content="en-US"><meta name="currency-code" content="USD">		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="theme-color" content="#0076BB" />
+	<meta name="description" content="Save on tee times with GolfNow! Join millions of golfers who book tee times at thousands of courses and find amazing golf tee time deals every day." />
+	<meta name="currency-code" content="USD" />
+		<meta property="og:locale" content="en_US">
+<meta property="og:type" content="website">
+<meta property="og:title" content="GolfNow - Book Golf Course Tee Times Online">
+<meta property="og:description" content="Save on tee times with GolfNow! Join millions of golfers who book tee times at thousands of courses and find amazing golf tee time deals every day.">
+<meta property="og:url" content="https://www.golfnow.com/">
+<meta property="og:site_name" content="GolfNow">
+<meta property="og:image" content="https://www.golfnow.com/Content/images/social/facebook.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:description" content="Save on tee times with GolfNow! Join millions of golfers who book tee times at thousands of courses and find amazing golf tee time deals every day.">
+<meta name="twitter:title" content="GolfNow - Book Golf Course Tee Times Online">
+<meta name="twitter:image:src" content="https://www.golfnow.com/Content/images/social/twitter.png">
+
+	<meta name="msvalidate.01" content="2C823E3E6FF53A657D379E2A70599B4A" />
+
+	<title id="master-page-title">GolfNow - Book Golf Course Tee Times Online</title>
+	<link rel="canonical" href="https://www.golfnow.com/" />
+	<link rel="manifest" href="/site.webmanifest?v=ujykziawW8vtSDcmbelt-GIf5UY5ZphG-FUL27F0ZeY" />
+	<link rel="apple-touch-icon" href="https://gqp7knph.cdn.imgeng.in/apple-touch-icon.png?v=LFv7p_PfaQjT4YMzlJpF6qSuszFk3tacEIYg9sY2NgE&av=401838134" />
+	<link rel="apple-touch-icon" sizes="114x114" href="https://gqp7knph.cdn.imgeng.in/apple-icon-114x114-precomposed.png?v=zpA5qgJ3Fy1_QcjltgGTbt7VT_KLqMxHYD4mnSQfrrE&av=401838134" />
+	<link rel="apple-touch-icon" sizes="120x120" href="https://gqp7knph.cdn.imgeng.in/apple-icon-120x120-precomposed.png?v=KA7949J14TcV0RcHOfChNsgXSF-MzdJKlXiso4e3xGA&av=401838134" />
+	<link rel="apple-touch-icon" sizes="144x144" href="https://gqp7knph.cdn.imgeng.in/apple-icon-144x144-precomposed.png?v=uUqI_1_2mw9Weo7kgmkKQ98tACeAbXBas_aBL1lpipQ&av=401838134" />
+	<link rel="apple-touch-icon" sizes="152x152" href="https://gqp7knph.cdn.imgeng.in/apple-icon-152x152-precomposed.png?v=EuRTo30mWPam8i0FIS4GxXqG2YiUMx_CzefP3Y3QzPU&av=401838134" />
+
+	<link rel="shortcut icon" type="image/x-icon" href="https://gqp7knph.cdn.imgeng.in/favicon.ico?v=byVJE7XihY7jcSEiv8Zaj-3UuL8skNT8O7oz0yVbIHo&av=401838134" />
+	<link rel="icon" type="image/x-icon" href="https://gqp7knph.cdn.imgeng.in/favicon.ico?v=byVJE7XihY7jcSEiv8Zaj-3UuL8skNT8O7oz0yVbIHo&av=401838134" />
+	<link rel="icon" type="image/png" sizes="96x96" href="https://gqp7knph.cdn.imgeng.in/favicon-96x96.png?v=peI8oyRmrC_HJBPqjnABkHzWpp4FT94IedMYgxF0Ftw&av=401838134" />
+	<link rel="icon" type="image/png" sizes="32x32" href="https://gqp7knph.cdn.imgeng.in/favicon-32x32.png?v=lPiubQeVDR5cegbgRWtiQRg5ptPy2xHpXSsNQJh9vgg&av=401838134" />
+	<link rel="icon" type="image/png" sizes="16x16" href="https://gqp7knph.cdn.imgeng.in/favicon-16x16.png?v=xskDX5gXJywhAviaTB52t18n04ZwfxthczqSL-mb0k4&av=401838134" />
+	<link rel="preload" href="https://gqp7knph.cdn.imgeng.in/dist/fonts/nunito-sans-latin-var.woff2?av=401838134" as="font" type="font/woff2"
+	  crossorigin />
+<link rel="preload" href="https://gqp7knph.cdn.imgeng.in/dist/fonts/poppins-latin-400.woff2?av=401838134" as="font" type="font/woff2"
+	  crossorigin />
+<link rel="preload" href="https://gqp7knph.cdn.imgeng.in/dist/fonts/poppins-latin-600.woff2?av=401838134" as="font" type="font/woff2"
+	  crossorigin />
+<style>
+	@font-face {
+		font-family: "Nunito Sans";
+		font-style: normal;
+		font-weight: 300 800;
+		font-display: swap;
+		src: url("https://gqp7knph.cdn.imgeng.in/dist/fonts/nunito-sans-latin-var.woff2?av=401838134") format("woff2")
+	}
+
+	@font-face {
+		font-family: "Poppins";
+		font-style: normal;
+		font-weight: 400;
+		font-display: swap;
+		src: url("https://gqp7knph.cdn.imgeng.in/dist/fonts/poppins-latin-400.woff2?av=401838134") format("woff2")
+	}
+
+	@font-face {
+		font-family: "Poppins";
+		font-style: normal;
+		font-weight: 600;
+		font-display: swap;
+		src: url("https://gqp7knph.cdn.imgeng.in/dist/fonts/poppins-latin-600.woff2?av=401838134") format("woff2")
+	}
+
+	@font-face {
+		font-family: "Poppins";
+		font-style: normal;
+		font-weight: 700;
+		font-display: swap;
+		src: url("https://gqp7knph.cdn.imgeng.in/dist/fonts/poppins-latin-700.woff2?av=401838134") format("woff2")
+	}
+
+	:root {
+		--font-display: "Poppins";
+		--font-body: "Nunito Sans"
+	}
+
+	body {
+		font-family: "Nunito Sans", Arial, sans-serif
+	}
+
+	.font-display {
+		font-family: "Poppins", Arial, sans-serif
+	}
+
+	[v-cloak] {
+		visibility: hidden
+	}
+
+	#homepage-app[v-cloak] {
+		display: block;
+		min-height: 100vh
+	}
+
+	#homepage-app[v-cloak]>* {
+		visibility: hidden;
+		background-image: none
+	}
+
+	#homepage-app[v-cloak] [data-ssr-placeholder] {
+		visibility: visible
+	}
+
+	.gn_section[data-preloaded="false"]:not([data-bg-ready]) {
+		background-image: none
+	}
+</style>
+
+<link rel="preload" href="https://gqp7knph.cdn.imgeng.in/dist/css/site.bundle.css?v=Ob2UqVNtydRWUuekbtD3XHYOmed_4KVAyhJzvHIbX3I&av=401838134" as="style" onload="this.onload=null;this.rel='stylesheet'" /> 
+<link rel="preload" href="https://gqp7knph.cdn.imgeng.in/dist/css/app.bundle.css?v=hZSP2__ZyZi9OLlOMmPW4RR19lLU6aoWfbFp_g7qV-I&av=401838134" as="style" onload="this.onload=null;this.rel='stylesheet'" /> 
+<noscript>
+	<link rel="stylesheet" href="https://gqp7knph.cdn.imgeng.in/dist/css/site.bundle.css?v=Ob2UqVNtydRWUuekbtD3XHYOmed_4KVAyhJzvHIbX3I&av=401838134" /> 
+	<link rel="stylesheet" href="https://gqp7knph.cdn.imgeng.in/dist/css/app.bundle.css?v=hZSP2__ZyZi9OLlOMmPW4RR19lLU6aoWfbFp_g7qV-I&av=401838134" /> 
+</noscript>
+
+<template id="external-css-template">
+	<link data-deferred-stylesheet="external" rel="stylesheet" href="https://gqp7knph.cdn.imgeng.in/dist/css/external.bundle.css?v=G1_qfZLUFaxSbJd95Q7LHgGCfWNy3vndTgecVsfT1n8&av=401838134" />
+</template>
+<script>
+	(() => {
+		const externalStyleSelectors = [
+			'.lightSlider',
+			'.lSSlideOuter',
+			'.noUi-target',
+			'[data-external-css-trigger]',
+		];
+		let intersectionObserver;
+		let mutationObserver;
+		let fallbackListenersAttached = false;
+
+		const loadExternalStyles = () => {
+			if (document.querySelector('link[data-deferred-stylesheet="external"]')) {
+				return;
+			}
+
+			intersectionObserver?.disconnect();
+			mutationObserver?.disconnect();
+			removeFallbackListeners();
+
+			const template = document.getElementById('external-css-template');
+			const externalStyles = template?.content?.firstElementChild?.cloneNode(true);
+			if (externalStyles) {
+				document.head.appendChild(externalStyles);
+			}
+		};
+
+		function removeFallbackListeners() {
+			if (!fallbackListenersAttached) {
+				return;
+			}
+
+			window.removeEventListener('scroll', loadExternalStyles);
+			window.removeEventListener('pointerdown', loadExternalStyles);
+			window.removeEventListener('keydown', loadExternalStyles);
+			fallbackListenersAttached = false;
+		}
+
+		const attachFallbackListeners = () => {
+			if (fallbackListenersAttached) {
+				return;
+			}
+
+			window.addEventListener('scroll', loadExternalStyles, { once: true, passive: true });
+			window.addEventListener('pointerdown', loadExternalStyles, { once: true, passive: true });
+			window.addEventListener('keydown', loadExternalStyles, { once: true });
+			fallbackListenersAttached = true;
+		};
+
+		const observeExternalStyleTrigger = (trigger) => {
+			if (!('IntersectionObserver' in window)) {
+				attachFallbackListeners();
+				return;
+			}
+
+			intersectionObserver ??= new IntersectionObserver((entries) => {
+				if (entries.some((entry) => entry.isIntersecting)) {
+					loadExternalStyles();
+				}
+			}, { rootMargin: '800px 0px' });
+
+			intersectionObserver.observe(trigger);
+		};
+
+		const watchExternalStyleTriggers = () => {
+			document
+				.querySelectorAll(externalStyleSelectors.join(','))
+				.forEach(observeExternalStyleTrigger);
+		};
+
+		const startExternalStyleWatcher = () => {
+			watchExternalStyleTriggers();
+
+			const mutationTarget = document.body || document.documentElement;
+			if (!mutationTarget || !('MutationObserver' in window)) {
+				return;
+			}
+
+			mutationObserver = new MutationObserver(watchExternalStyleTriggers);
+			mutationObserver.observe(mutationTarget, { childList: true, subtree: true });
+		};
+
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', startExternalStyleWatcher, { once: true });
+		} else {
+			startExternalStyleWatcher();
+		}
+	})();
+</script>
+<link id="cloud-storage-deferred-style" rel="preload" href="https://cds.golfnow.com/www.golfnow.com_PROD2/dist/cloud-storage.css"
+	  as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<link id="tailwind-deferred-style" rel="preload" href="https://gqp7knph.cdn.imgeng.in/dist/css/tailwindcss.bundle.css?v=9EkdylGAhTUeBu4GX5Cq9j_19Yt9xFFEgx2njCJG9zw&av=401838134" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<script>
+	(() => {
+		const swapToStylesheet = (link) => {
+			if (!link || link.rel !== 'preload') {
+				return;
+			}
+
+			link.rel = 'stylesheet';
+		};
+
+		const deferredLinks = [
+			document.getElementById('cloud-storage-deferred-style'),
+			document.getElementById('tailwind-deferred-style'),
+		].filter(Boolean);
+
+		if (!deferredLinks.length) {
+			return;
+		}
+
+		const ensureDeferredStylesApplied = () => {
+			deferredLinks.forEach((link) => {
+				if (link.rel === 'preload') {
+					swapToStylesheet(link);
+				}
+			});
+		};
+
+		if (document.readyState === 'complete') {
+			window.setTimeout(ensureDeferredStylesApplied, 0);
+		} else {
+			window.addEventListener('load', () => {
+				window.setTimeout(ensureDeferredStylesApplied, 0);
+			}, { once: true });
+		}
+	})();
+</script>
+<noscript>
+	<link rel="stylesheet" href="https://gqp7knph.cdn.imgeng.in/dist/css/external.bundle.css?v=G1_qfZLUFaxSbJd95Q7LHgGCfWNy3vndTgecVsfT1n8&av=401838134" />
+	<link rel="stylesheet" href="https://cds.golfnow.com/www.golfnow.com_PROD2/dist/cloud-storage.css" />
+	<link rel="stylesheet" href="https://gqp7knph.cdn.imgeng.in/dist/css/tailwindcss.bundle.css?v=9EkdylGAhTUeBu4GX5Cq9j_19Yt9xFFEgx2njCJG9zw&av=401838134" />
+</noscript>
+
+
+	
+	<link rel="preload" href="https://gqp7knph.cdn.imgeng.in/dist/css/home/index.bundle.css?v=TwhdvBJ9KX2Ht0o0hQoQM3PNi3bOtX5k1uyhEnr7hE8&av=401838134" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+	<link rel="preload" fetchpriority="high" as="image" media="(min-width: 1400px)"
+		  href="https://gqp7knph.cdn.imgeng.in//Content/images/hero-img/fallback-hero-xl.png" />
+	<link rel="preload" fetchpriority="high" as="image" media="(min-width: 1000px) and (max-width: 1399.98px)"
+		  href="https://gqp7knph.cdn.imgeng.in//Content/images/hero-img/fallback-hero.png" />
+	<link rel="preload" fetchpriority="high" as="image" media="(max-width: 999.98px)"
+		  href="https://gqp7knph.cdn.imgeng.in//Content/images/hero-img/fallback-hero.png" />
+	<noscript>
+		<link rel="stylesheet" href="https://gqp7knph.cdn.imgeng.in/dist/css/home/index.bundle.css?v=TwhdvBJ9KX2Ht0o0hQoQM3PNi3bOtX5k1uyhEnr7hE8&av=401838134" />
+	</noscript>
+
+
+	<meta name="cds-url" content="https://cds.golfnow.com" />
+<meta name="cdn-url" content="https://www.golfnow.com" />
+<meta name="asset-prefix" content="/" />
+<style>
+	:root {
+		--cds-base:
+			https://cds.golfnow.com
+		;
+	}
+</style>
+<script>
+	window.dataLayer = window.dataLayer || [];
+	window.__SITE_CONFIG__ = window.__SITE_CONFIG__ || {};
+	window.__SITE_CONFIG__.cdsUrl = 'https://cds.golfnow.com';
+	window.__SITE_CONFIG__.cdnUrl = 'https://www.golfnow.com';
+	window.__SITE_CONFIG__.useCdn = true;
+	var googletag = googletag || {},
+		uid = '',
+		upostal = { latitude: null, longitude: null },
+		utype = '',
+		siteCode = null,
+		membershipStatus = function () { return ''; },
+		pageType = '',
+		viewOverrideParams = globalViewOverrideParams = null,
+		autoLoginProps = {},
+		gnSiteLocale = 'en-US',
+		smartBannerEnabled = ('True' === 'True') && ('False' === 'False'),
+		topDomainAssetPrefix = '/' === '/' ? undefined : '/',
+		productSubscriptionName = '',
+		cmsHeaderFooter = 'False' === 'True',
+		sessionId = '34bef6010f674ae2ae9f2eccc54fe873',
+		loginUrlWprotocol = '/account/login?returnUrl=%2F',
+		createAccountUrlWprotocol = '/account/create';
+	window.__CLIENT_LOCATION_CONTEXT__ = {
+		isAuthenticated: 'False' === 'True',
+		profile: {
+			isValid: 'False' === 'True',
+			latitude: null,
+			longitude: null,
+			city: null,
+			state: null,
+			country: null
+		}
+	};
+</script>
+	
+
+	<meta name="gn:content-block-name" content="HeadInlineScript" />
+<meta name="facebook-domain-verification" content="ou3g8mkczt6qdugs64834hz70wpmex" />
+
+<script>
+	// Initialize variables for pixel LDU and opt-out status
+	var pixelLDU = '';
+	var optOutStatus = 'N';
+
+	var oneTrustJWT = sessionStorage.getItem('OneTrustJWT');
+	if (oneTrustJWT) {
+		window.OneTrust = JSON.parse(oneTrustJWT);
+	}
+
+	//If using IAB CCPA Privacy String, include the following:
+	(function () {
+		let CCPAString = new URLSearchParams(window.location.search).get('USPrivacy');
+		if (CCPAString) {
+			// CCPAString format: the 3rd character indicates opt-out status (Y = user has opted out; N = user has not opted out)
+			document.cookie = 'usprivacy=' + encodeURIComponent(CCPAString) + '; Path=/; SameSite=Lax; Secure';
+		}
+	})();
+	// This function will be called by the OneTrust script once it has loaded
+	function OptanonWrapper() {
+		// Set the value based on Allow Sale toggle.
+		// Set the pixel limited data use flag based on the Allow Sale toggle.
+		// Tag manager will use this value to determine whether to fire the Facebook pixel in LDU mode.
+		pixelLDU = OnetrustActiveGroups.indexOf(',USP,') == -1 ? 'LDU' : '';
+
+		// Set the user's CCPA opt-out status based on the Allow Sale toggle.
+		// Tag manager will use this value to determine whether the user has opted out of sale (Y) or not (N).
+		optOutStatus = OnetrustActiveGroups.indexOf(',USP,') == -1 ? 'Y' : 'N';
+	}
+</script>	<meta name="gn:content-block-status" content="OK" />
+	<meta name="gn:content-block-version" content="//cds.golfnow.com/www.golfnow.com_PROD2/" />
+
+		<script type="module">
+		const PWA_UPDATE_IDLE_DELAY_MS = 10000;
+		const canLoadPwaUpdate =
+			typeof navigator !== 'undefined' &&
+			navigator.storage &&
+			typeof navigator.storage.estimate === 'function';
+
+		const loadPwaUpdate = () => {
+			window.GolfNowPwaUpdatePath = '/pwabuilder-sw.js?skipCache=0&v=4.0.18.38134';
+
+			import('/dist/js/shared/pwa-update.bundle.js')
+				.catch(() => {
+					// Ignore optional PWA update prompt failures so the page can continue rendering.
+				});
+		};
+
+		const schedulePwaUpdateImport = () => {
+			const scheduleIdle = window.requestIdleCallback || ((callback) => window.setTimeout(callback, 1500));
+			scheduleIdle(loadPwaUpdate, { timeout: 5000 });
+		};
+
+		const scheduleDelayedPwaUpdateImport = () => {
+			window.setTimeout(schedulePwaUpdateImport, PWA_UPDATE_IDLE_DELAY_MS);
+		};
+
+		if (canLoadPwaUpdate) {
+			if (document.readyState === 'complete') {
+				scheduleDelayedPwaUpdateImport();
+			} else {
+				window.addEventListener('load', scheduleDelayedPwaUpdateImport, { once: true });
+			}
+		}
+	</script>
+	<script>
+		window.GolfNowPwaConfig = {
+			deployVersion: '4.0.18.38134',
+			serviceWorkerPath: '/pwabuilder-sw.js?skipCache=0&v=4.0.18.38134',
+			serviceWorkerScope: '/'
+		};
+	</script>
+	<script src="/dist/js/service-worker-helper.bundle.js?v=z5Qqh4iAvBG2e0tn87DGFT7UT_Btqnx2fZwjJxQXHQw&av=401838134" defer></script>
+	<script type="speculationrules">
+		{
+			"prefetch":
+			[
+				{
+					"source": "document",
+					"where": {
+					"and": [
+						{ "href_matches": "/*" },
+						{ "not": { "selector_matches": "a[data-noprerender]" } }
+					]
+					},
+					"eagerness": "moderate"
+				}
+			]
+		}
+	</script>
+<script src="/dist/js/jquery-core.bundle.js?v=G1JuPFUCzhNeO3UohbU1EUY9gLUQF7rqUvBbvDFqjII&av=401838134" defer></script> 
+<script src="/dist/js/legacy/amplify.bundle.js?v=j4Sq_UqUbslyOb8jpHxbe2N0pQZNFSZIrjuSQCJdKsA&av=401838134" defer></script> 
+<script defer="defer" src="/dist/js/runtime.bundle.js?v=YngJpnt8_QWHPcWY&av=401838134"></script><script defer="defer" src="/dist/js/widgets-runtime.bundle.js?v=2KnTtlwqascGHt6y&av=401838134"></script><script defer="defer" src="/dist/js/app-optional-runtime.bundle.js?v=tBKovzTcpgBlU7PP&av=401838134"></script><script defer="defer" src="/dist/js/62862.bundle.js?v=M0F8FnMYLHEsmweA&av=401838134"></script><script defer="defer" src="/dist/js/64410.bundle.js?v=5pPWiZL04MRmqXWp&av=401838134"></script><script defer="defer" src="/dist/js/33534.bundle.js?v=Z_qecQJs6GD5fQiW&av=401838134"></script><script defer="defer" src="/dist/js/72336.bundle.js?v=D3zz4x4-uBRRuo79&av=401838134"></script><script defer="defer" src="/dist/js/48377.bundle.js?v=DWtLyPsGdD9OC-G5&av=401838134"></script><script defer="defer" src="/dist/js/70383.bundle.js?v=_MKjwBbrKR4GnOv7&av=401838134"></script><script defer="defer" src="/dist/js/79162.bundle.js?v=vDIhjDPc5eRKAjUX&av=401838134"></script><script defer="defer" src="/dist/js/52162.bundle.js?v=1zEqZKHCfZH1yrRZ&av=401838134"></script><script defer="defer" src="/dist/js/app.bundle.js?v=e0M6UbdeHIWY57iF&av=401838134"></script>
+<script>
+	(() => {
+		const headerCollapseSelector = '[data-collapse-toggle="topnavigation-container"]';
+		const headerDropdownSelector = '#login-menu-large-button';
+
+		const setExpandedState = (toggle, isExpanded) => {
+			toggle?.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+		};
+
+		const setHiddenState = (target, isHidden) => {
+			target?.classList.toggle('hidden', isHidden);
+		};
+
+		const prepareHeaderDropdownForPositioning = (target) => {
+			if (!target) return;
+			target.style.position = 'fixed';
+			target.style.top = '0';
+			target.style.left = '-9999px';
+			target.style.right = 'auto';
+			target.style.visibility = 'hidden';
+			target.style.pointerEvents = 'none';
+		};
+
+		const revealHeaderDropdown = (target) => {
+			if (!target) return;
+			target.style.visibility = 'visible';
+			target.style.pointerEvents = 'auto';
+		};
+
+		const positionHeaderDropdown = () => {
+			const { toggle, target } = getDropdownElements();
+			if (!toggle || !target) return;
+
+			const toggleRect = toggle.getBoundingClientRect();
+			const targetRect = target.getBoundingClientRect();
+			const viewportPadding = 8;
+			const top = toggleRect.bottom + viewportPadding;
+			const left = Math.min(
+				Math.max(viewportPadding, toggleRect.right - targetRect.width),
+				window.innerWidth - targetRect.width - viewportPadding
+			);
+
+			target.style.position = 'fixed';
+			target.style.top = `${top}px`;
+			target.style.left = `${left}px`;
+			target.style.right = 'auto';
+			// The dropdown's content height is unbounded (GolfPass upsell block + menu items),
+			// so when it doesn't fit below the toggle, clamp it and let it scroll instead of
+			// silently clipping items like Logout with no indication a user can scroll.
+			target.style.maxHeight = `${Math.max(window.innerHeight - top - viewportPadding, 0)}px`;
+			target.style.overflowY = 'auto';
+		};
+
+		const getDropdownElements = () => {
+			const toggle = document.querySelector(headerDropdownSelector);
+			const targetId = toggle?.getAttribute('data-header-dropdown-target');
+			const target = targetId ? document.getElementById(targetId) : null;
+			return { toggle, target };
+		};
+
+		const toggleHeaderCollapse = (toggle) => {
+			const targetId = toggle?.getAttribute('data-collapse-toggle');
+			const target = targetId ? document.getElementById(targetId) : null;
+			if (!toggle || !target) return;
+
+			const shouldExpand = target.classList.contains('hidden');
+			setHiddenState(target, !shouldExpand);
+			setExpandedState(toggle, shouldExpand);
+		};
+
+		const closeHeaderDropdown = () => {
+			const { toggle, target } = getDropdownElements();
+			if (!toggle || !target) return;
+
+			setHiddenState(target, true);
+			setExpandedState(toggle, false);
+			target.style.visibility = '';
+			target.style.pointerEvents = '';
+		};
+
+		const toggleHeaderDropdown = () => {
+			const { toggle, target } = getDropdownElements();
+			if (!toggle || !target) return;
+
+			const shouldExpand = target.classList.contains('hidden');
+			setExpandedState(toggle, shouldExpand);
+			if (shouldExpand) {
+				prepareHeaderDropdownForPositioning(target);
+				setHiddenState(target, false);
+				requestAnimationFrame(() => {
+					positionHeaderDropdown();
+					requestAnimationFrame(() => {
+						revealHeaderDropdown(target);
+					});
+				});
+				return;
+			}
+
+			setHiddenState(target, true);
+		};
+
+		const onDocumentClick = (event) => {
+			const clickTarget = event.target instanceof Element ? event.target : null;
+			if (!clickTarget) return;
+
+			const collapseToggle = clickTarget.closest(headerCollapseSelector);
+			if (collapseToggle) {
+				event.preventDefault();
+				toggleHeaderCollapse(collapseToggle);
+				return;
+			}
+
+			const dropdownToggle = clickTarget.closest(headerDropdownSelector);
+			if (dropdownToggle) {
+				event.preventDefault();
+				toggleHeaderDropdown();
+				return;
+			}
+
+			const { toggle, target } = getDropdownElements();
+			if (!toggle || !target || target.classList.contains('hidden')) return;
+			if (target.contains(clickTarget) || toggle.contains(clickTarget)) return;
+
+			closeHeaderDropdown();
+		};
+
+		const onKeyDown = (event) => {
+			if (event.key === 'Escape') closeHeaderDropdown();
+		};
+
+		const onWindowChange = () => {
+			const { target } = getDropdownElements();
+			if (!target || target.classList.contains('hidden')) return;
+			positionHeaderDropdown();
+		};
+
+		const initHeaderUiLite = () => {
+			document.addEventListener('click', onDocumentClick);
+			document.addEventListener('keydown', onKeyDown);
+			window.addEventListener('resize', onWindowChange);
+			window.addEventListener('scroll', onWindowChange, true);
+		};
+
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', initHeaderUiLite, { once: true });
+		} else {
+			initHeaderUiLite();
+		}
+	})();
+</script>
+
+	<script>
+	var GolfNow = GolfNow || {};
+	window.dataLayer = window.dataLayer ?? [];
+	var viewOverrideParams = viewOverrideParams ?? null,
+		uid = uid ?? '',
+		utype = utype ?? 'none',
+		upostal = upostal ?? { latitude: null, longitude: null },
+		membershipStatus = function () {
+			var defaultNonMemberValue = 'Non-Member';
+			if (uid === '') return defaultNonMemberValue;
+
+			var loginElem = document.querySelector('#avatar-loggedin-data-container');
+			if (!loginElem) return defaultNonMemberValue;
+
+			var isMember = loginElem.dataset.isgppmember === 'true' || loginElem.dataset.isgpmember === 'true';
+			if (!isMember) return defaultNonMemberValue;
+
+			var subscriptionProductId = (loginElem.dataset.subscriptionproductid || '').trim();
+			if (subscriptionProductId === '') return defaultNonMemberValue;
+
+			return 'ProductId ' + subscriptionProductId;
+		},
+		isAuthenticated = 'False' === 'True',
+		userName = '',
+		pageType = pageType || 'Home',
+		clientIP = 'ace91451-c311-4096-9035-3455c276f653',
+		exactTargetOrgId = '7208803',
+		defaultListView = 'Course',
+		defaultListSort = 'Facilities.Distance',
+		defaultSearchRadius = defaultCourseViewSearchRadius = defaultListViewSearchRadius = 35,
+		maximumSearchRadius = 255,
+		jsGoogleMapsUrl = '//maps.googleapis.com/maps/api/js?libraries=geometry,marker&key=AIzaSyDTnWnjzqVWxNTaz_P58koE6qN6MFwGzsQ',
+		usegoogleplaces = 'False' === 'True',
+		cdnUrl = 'https://www.golfnow.com/',
+		cdnImageUrl = 'https://gqp7knph.cdn.imgeng.in/',
+		cdnImageBaseUrl = 'https://exddilid.cdn.imgeng.in/app/ttf/image/',
+		siteCode = siteCode || 'GNUS',
+		defaultUnits = 'mi',
+		nonPostalCodeCountries = JSON.parse('["ie","bm","fj"]'),
+		countriesWithStates = JSON.parse('["au","bm","ca","cw","cz","eng","gb","hn","ie","jm","mx","nir","nx","pr","sk","sct","us","wls"]'),
+		exactTarget = null,
+		_trkexpiration = 1000 * 60 * 60 * 720,
+		requiresGooglePlaces = 'False' === 'True',
+		placeDetailService = null,
+		autoCompleteService = {},
+		showRewardsBadgeForUser = 'False' === 'True',
+		showGolfPassBadgeForUser = 'False' === 'True',
+		homeCourseEnabled = 'False' === 'True',
+		socialEnabled = 'True' === 'True',
+		authenticated = 'False' === 'True',
+		maxSearchRadius = Number('255'),
+		displayMode = 'large',
+		siteTheme = 'theme-default',
+		trkCode = '',
+		smartBannerEnabled = 'True' === 'True',
+		footerEmailFormUrl = '/api/utilities/email-subscribe',
+		isEmailFooterSubscribeSubcomponent = 'False' === 'True',
+		defaultSiteCurrencyCode = 'USD',
+		alwaysShowCurrency = 'False' === 'True',
+		alwaysHideCurrency = 'False' === 'True';
+
+	function handleGoogleMapCallback(){
+		if (google?.maps?.places) {
+			placeDetailService = new google.maps.places.PlacesService(document.getElementById('placedetail'));
+			autoCompleteService = new google.maps.places.AutocompleteService();
+		}
+	}
+	window.__CLIENT_LOCATION_CONTEXT__ = window.__CLIENT_LOCATION_CONTEXT__ ?? {
+		isAuthenticated: 'False' === 'True',
+		profile: {
+			isValid: 'False' === 'True',
+			latitude: null,
+			longitude: null,
+			city: null,
+			state: null,
+			country: null
+		}
+	};
+</script>
+	<script>
+		window.siteAppVM = {
+			gaPhotoRootUrl: 'https://exddilid.cdn.imgeng.in/app/ttf/image/hds/',
+			profilePicUrl: 'https://s3.amazonaws.com/avatars.golfnow.com/gn_users/',
+			hashedEmail: '',
+			profileZipCode: '',
+		};
+	</script>
+
+
+		<meta name="golfnow-gtm"
+		  data-container-id="GTM-RK9VV"
+		  data-defer-container="true" />
+	<script defer="defer" src="/dist/js/shared/google-tag-manager.bundle.js?v=RJR9mpdY2Abp3TGJ&av=401838134"></script>
+
+	<!-- Begin Exact Target PI General Tracking -->
+<script defer="defer" src="/dist/js/shared/exact-target-pl.bundle.js?v=h9W-Oi8tipNfoHSV&av=401838134"></script>
+<!-- End Exact Target PI -->
+
+		<script>
+		autoLoginProps = {
+			scriptUrl: 'https://my.golfid.io/js/golfid.js',
+			clientId: 'F3QqaOLcezjIXItt',
+			redirectUrl: 'https://www.golfnow.com/golfid/oauth-callback',
+			baseUrl: 'https://my.golfid.io/',
+			securityKey: encodeURI('EAAAAOC0nEmZkKkVBJ6CI&#x2B;oc592coHI/QypI8hf0&#x2B;kyCLSb3'),
+			profilePicUrl: 'https://s3.amazonaws.com/avatars.golfnow.com/gn_users/',
+			avatarUrl: '',
+			homepageUrl: '/',
+			profileUrl: '/my/profile',
+			gp: 'True' === 'True',
+			rewards: 'True' === 'True',
+			social: 'True' === 'True',
+			profileId: Number('-1'),
+		};
+	</script>
+
+	<script>
+	const channelId = '331', pmpBatchCollectionName = 'pmp_logs_web';
+</script>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function (evt) {
+		GolfNow.CoreWeb.App.initApp()
+		});
+	</script>
+	
+	<script>
+	const searchType_GeoLocation = "GeoLocation",
+		searchType_Facility = 'Facility',
+		searchType_Market = 'Market',
+		searchType_Destination = 'Destination',
+		searchType_GoPlay = 'GoPlay',
+		searchType_Favorites = 'Favorites',
+		homepageSearch = 'True' === 'True',
+		teetimeSearch = 'False' === 'True',
+		bestDealsFacilityPage = 'False' === 'True';
+
+	const isFacilitySearch = 'False' === 'True',
+		isHomePageSearch = 'True' === 'True',
+		isFavoritesSearch = 'False' === 'True',
+		isSpecialRatesPage = 'False' === 'True',
+		isWhiteLabelSite = 'False' === 'True',
+		isHotDealsDestination = 'False' === 'True',
+		isSubscriptionsEnabled = 'True' === 'True',
+		disableChangeLocation = 'False' === 'True',
+		disableSearchResultActions = 'False' === 'True',
+		displayFiltersButton = 'False' === 'True',
+		serverDisplayMode = 'large',
+		currentCulture = 'en-US',
+		cacheKey = 'home-index-34bef6010f674ae2ae9f2eccc54fe873-model';
+
+	const searchResultActionsParams = {
+		locationHeadingLabel: ' ',
+		disableAdvanceSearch: 'False' === 'True',
+		disableCourseView: true,
+		disableMapView: true,
+		title: "",
+		description: "",
+	};
+	const viewModel = {
+		searchViews: null,
+		refinements: [{"name":"Rate-Types","mode":"Off"}]
+	};
+
+	let redirectToFacilityLink = '/tee-times/facility/~facilityid~/search',
+		redirectToFittingsFacilityLink = '/fitting/facility/~facilityid~/search',
+		noResultsMessage = 'No results found.  Please try another search.',
+		redirectToBestDealsFacilityLink = '/best-deals/facility/~facilityid~/search',
+		searchController = null,
+		searchKeyValue = '',
+		excludeFeaturedFacilitiesDefault = false,
+		datePickerSet = false,
+		viewoverridesObj = null,
+		hotDealsSearchUrl = '/tee-times/hot-deals',
+		teeTimesSearchUrl = '/tee-times/search',
+		goPlayMode = '';
+
+	// 
+	viewOverrideParams = globalViewOverrideParams = {
+		redirectOnSearch: true,
+		excludeFeaturedFacilities: false,
+		searchType: 0,
+		offPlatformCourse: false
+	};
+</script>
+
+
+	<script>
+		const actionName = 'index',
+			pageConfigName = 'home-index',
+			marketingPhoneNumber = '',
+			widgetRadius = Number('25'),
+			expirationDays = '7',
+			hasInvite = 'False' == 'True',
+			currentPage = '/',
+			homePageParams = {
+				isAuthenticated: isAuthenticated,
+				userName: userName,
+				msg: 'No results found. Please try a different search.',
+				displayMode: displayMode,
+				marketingPhoneNumber: marketingPhoneNumber,
+				actionName: actionName,
+				overrideRadius: widgetRadius,
+		}, areaName = 'GNUS';
+		// 
+		viewModel.model = {"viewOverrides":{"facilityIds":[],"searchType":"GeoLocation","hotDealsOnly":false,"radius":35,"sortDirection":"Asc","priceMax":10000.0,"priceMin":0.0,"timePeriod":0,"holes":"Any","facilityType":"GolfCourse","players":0,"homePageSearch":true,"redirectOnSearch":true,"resetLocation":true,"searchParamsAction":"Client","teeTimeId":0,"timeMin":10,"timeMax":42,"defaultView":"Course","defaultSort":"Facilities.Distance","rateType":"all","federatedSearchSettings":{"isTeeTimeSearchInstance":false,"nonSmallDisplayItemResultsLimit":20,"smallDisplayItemResultsLimit":20},"vipSubscriptionSetting":{"isSubcriptionEnabled":true,"vipInterstitialSettings":{"interstitialInactiveDays":7}},"disableLocationChange":false,"disableViewChange":false,"disableSearchResultActions":false,"offPlatformCourse":false}};
+		viewModel.pageConfig = {"name":"Large","height":640,"width":480,"sections":[{"name":"HomePageSearch","preLoad":true,"type":"Grid","order":1,"widgets":[{"items":-1,"css":"grid grid-cols-10","height":82.0,"children":[],"hideWhenEmpty":false,"name":"SearchInputBig","template":"_Search-Input-Big"}],"useParentAsideContainer":false,"useWidgetDimensionsOnly":false},{"name":"HomepageBannerPromo","preLoad":true,"css":"container mx-auto","type":"Grid","order":2,"widgets":[{"items":1,"height":350.0,"children":[],"hideWhenEmpty":false,"name":"HomepageBannerPromo","template":"_HomepageBannerPromo"}],"useParentAsideContainer":false,"useWidgetDimensionsOnly":false},{"name":"ExploreLinks","preLoad":true,"css":"container mx-auto mt-5","type":"Grid","order":3,"widgets":[{"items":5,"height":210.19,"children":[],"sliderHeight":168.0,"hideWhenEmpty":false,"name":"ExploreLinks","template":"_Explore-Links"}],"useParentAsideContainer":false,"useWidgetDimensionsOnly":false},{"name":"UpcomingReservations","preLoad":false,"css":"","type":"Grid","order":4,"widgets":[{"items":5,"css":"","height":200.0,"children":[],"hideWhenEmpty":false,"name":"UpcomingReservations","template":"_Upcoming-Reservations-HPW"}],"useParentAsideContainer":false,"useWidgetDimensionsOnly":false},{"name":"PreviouslyVisitedCourses","preLoad":true,"css":"hidden container mx-auto","type":"Grid","order":5,"widgets":[{"items":3,"height":157.0,"children":[{"name":"VisitedCourseItem","template":"VisitedCourseItem"}],"hideWhenEmpty":false,"name":"VisitedCourses","template":"_Visited-Courses"}],"useParentAsideContainer":false,"useWidgetDimensionsOnly":false},{"name":"home_interactive","preLoad":false,"type":"Grid","order":6,"widgets":[{"items":1,"height":115.0,"children":[],"hideWhenEmpty":false,"id":"DfpAd_home_interactive","name":"DfpAd","template":"_DfpAd"}],"useParentAsideContainer":false,"useWidgetDimensionsOnly":true},{"name":"HotDealHomepageTiles","preLoad":true,"css":"py-5","type":"Grid","order":7,"widgets":[{"items":5,"height":420.0,"children":[],"hideWhenEmpty":false,"name":"HotDealHomepageTiles","template":"_Hot-Deal-Homepage-Tiles"}],"useParentAsideContainer":false,"useWidgetDimensionsOnly":false},{"name":"FeaturedCourses-HPW","preLoad":true,"css":"py-5 home","type":"Grid","order":8,"widgets":[{"items":10,"height":420.0,"children":[{"name":"FeaturedCourses","template":"FeaturedCourses"}],"sliderHeight":254.0,"hideWhenEmpty":false,"name":"FeaturedCoursesHpw","template":"_Featured-Courses-HPW"}],"useParentAsideContainer":false,"useWidgetDimensionsOnly":false},{"name":"Home_1140x70_Main","preLoad":false,"type":"Grid","order":9,"widgets":[{"items":1,"height":115.0,"children":[],"hideWhenEmpty":false,"id":"DfpAd-Home_1140x70_Main","name":"DfpAd","template":"_DfpAd"}],"useParentAsideContainer":false,"useWidgetDimensionsOnly":true},{"name":"HomeCourse","preLoad":false,"type":"Grid","order":10,"widgets":[{"items":1,"css":"","height":470.0,"children":[],"hideWhenEmpty":false,"name":"HomeCourseWidget","template":"_Home-Course"}],"useParentAsideContainer":false,"useWidgetDimensionsOnly":false},{"name":"NineHoleCourses","preLoad":false,"css":"py-6 bg-gopher","type":"Grid","order":11,"widgets":[{"items":4,"height":380.0,"children":[{"name":"NearMeCourses","template":"NearMeCourses"},{"name":"TeeTimeSummaryTile","template":"TeeTimeSummaryTile"}],"sliderHeight":254.0,"hideWhenEmpty":false,"name":"NineHoleCourses_HPW","template":"_Nine-Hole-Courses-HPW"}],"useParentAsideContainer":false,"useWidgetDimensionsOnly":true},{"name":"MobileApps","preLoad":false,"type":"Randomize_Widgets","order":12,"widgets":[{"items":1,"height":260.0,"children":[{"name":"HeroBanner","template":"UI/HeroBanner"}],"hideWhenEmpty":false,"name":"MobileApps","template":"_MobileApps"},{"items":1,"height":260.0,"children":[],"hideWhenEmpty":false,"name":"CompeteMobileApps","template":"_CompeteMobileApps"},{"items":1,"height":260.0,"children":[],"hideWhenEmpty":false,"name":"GolfPassBanner","template":"_GolfPassBanner"},{"items":1,"height":260.0,"children":[],"hideWhenEmpty":false,"name":"GiftcardBanner","template":"_GiftcardBanner"},{"items":1,"height":260.0,"children":[],"hideWhenEmpty":false,"name":"SimulatorBanner","template":"_SimulatorBanner"}],"useParentAsideContainer":false,"useWidgetDimensionsOnly":true},{"name":"SpotlightArticles","preLoad":false,"type":"Grid","order":13,"widgets":[{"items":5,"height":289.0,"children":[{"name":"SpotlightArticles","template":"SpotlightArticles"}],"hideWhenEmpty":false,"name":"SpotlightArticles","template":"_Spotlight-Articles"}],"useParentAsideContainer":false,"useWidgetDimensionsOnly":true},{"name":"FeaturedDestinations","preLoad":false,"css":"home","type":"Grid","order":14,"widgets":[{"items":3,"height":500.0,"children":[],"hideWhenEmpty":false,"name":"FeaturedDestinations","template":"_Destinations"}],"useParentAsideContainer":false,"useWidgetDimensionsOnly":true},{"name":"OtherDestinations","preLoad":false,"type":"Grid","order":15,"widgets":[{"items":3,"height":700.0,"children":[],"hideWhenEmpty":false,"name":"DestinationLinkList","template":"_Destination-Link-List"}],"useParentAsideContainer":false,"useWidgetDimensionsOnly":false},{"name":"Quick-Links","preLoad":false,"css":"","type":"Grid","order":16,"widgets":[{"items":20,"height":208.0,"children":[{"name":"QuickLinkCallout","template":"UI/QuickLinkCallout"}],"hideWhenEmpty":false,"name":"QuickLinkCallouts","template":"_Quick-Link-Callouts"}],"useParentAsideContainer":false,"useWidgetDimensionsOnly":false}],"adUnits":[{"adUnitName":"golfnow.com_home_interactive","containerName":"home_interactive"},{"adUnitName":"golfnow.com_home_1140x70_Main","containerName":"home_1140x70_main"}]};
+	</script>
+	<script defer="defer" src="/dist/js/91645.bundle.js?v=Qd9icUxxerYDO0o2&av=401838134"></script><script defer="defer" src="/dist/js/home/index.bundle.js?v=jZx5AL1S_yFYwPjt&av=401838134"></script>
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			const homePage = new GolfNow.CoreWeb.HomePage(pageConfigName, `HomePage${areaName}`, '#homepage-app', homePageParams, viewModel);
+		});
+	</script>
+
+	
+</head>
+
+<body class="homepage theme-default">
+	<!-- Google Tag Manager (noscript) -->
+	<noscript>
+		<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-RK9VV" 
+				height="0"
+				width="0"
+				style="display: none; visibility: hidden"></iframe>
+	</noscript>
+	<!-- End Google Tag Manager (noscript) -->
+
+	<div data-fr3sh="USE2GNPWW001013" data-apiepa="https://api.gnsvc.com/rest" data-v="4.0.18.38134" data-id10t="1"
+		 data-dm="Large">
+		<!-- USE2GNPWW001013 --> <!-- fR3sH|<0d€ -->
+		<!-- https://api.gnsvc.com/rest -->
+		<!-- 4.0.18.38134 -->
+		<!-- ID11T -->
+		<!-- DM-Large -->
+	</div>
+	<div class="drawer-wrap subpage" style="display: none;">
+		<div class="drawer-right-inner">
+					
+<header id="main-header" class="relative md:min-h-[6.8125rem] min-h-16 bg-skin-menu z-50" role="banner">
+	<a id="skip-to-content"
+	   class="sr-only px-4 py-3 text-center text-white rounded-b-lg bg-primary absolute left-2 -translate-y-[120%] transition-transform hover:translate-y-0 focus:translate-y-0">
+		Skip to main content</a>
+
+		<nav
+			class="fixed top-0 z-20 content-center w-full border-b border-skin-menuborder top-bar bg-skin-menu start-0 min-h-16">
+				<div id="global-nav-container" class="hidden w-full border-b border-skin-menuborder lg:justify-normal md:flex">
+					<nav class="container mx-auto overflow-hidden brand-nav bg-skin-menu">
+						<ul>
+							<li class="table-cell align-middle border-r border-gray-200 opacity-75 cursor-pointer last-of-type:border-r-0 hover:opacity-100"
+								v-for="item in navItems" :key="item.id">
+								<a :href="`${item.href}?utm_source=${item.utm_source}&utm_medium=Partnerships&utm_campaign=Universal_Navigation`"
+								   rel="noopener noreferrer" target="_blank"
+								   class="block px-5 py-3 text-sm text-black lg:py-4 hover:bg-gray-100">
+									<img class="h-3" :src="item.imgsrc" alt="item.alt" title="item.title" />
+								</a>
+							</li>
+						</ul>
+					</nav>
+				</div>
+			<div class="grid items-center header-padding-y bg-skin-menu min-h-16">
+				<div class="container flex flex-wrap justify-between mx-auto">
+					
+<a href="/" class="flex items-center md:space-x-2 lg:space-x-3 rtl:space-x-reverse">
+	<img class="hidden h-[var(--header-logo-height)] lg:block" width="138" height="28"
+		 src="/Content/images/gn-logo.svg" alt="GolfNow Official Site" />
+	<img class="block object-contain w-11 h-10 logo-image lg:hidden" width="44" height="40" src="https://gqp7knph.cdn.imgeng.in/Content/images/gn-logo-small.svg?av=401838134"
+		 alt="GolfNow Official Site" />
+</a>
+
+
+						<div id="login-menu-container" class="flex items-center space-x-6 nav:order-2 rtl:space-x-reverse">
+							<ul class="flex items-center space-x-1 nav:space-x-6 nav:order-2 lg:pt-1 rtl:space-x-reverse login-box-helper"
+								:key="componentKey">
+										<li :class="['loggedin-data-container', toggleListItemCss]" :data-firstname="firstName" :data-lastname="lastName"
+			:data-customerid="customerId" :data-profileid="profileId" :data-isgpmember="false"
+			:data-isgppmember="false">
+
+				
+		<avatar first-name="" last-name="" :profile-id="-1"
+				customer-id="" :authenticated="true" avatar-pic=""></avatar>
+
+		</li>
+		<li id="login-items" class="hidden navlg:font-light nav:block">
+			<a role="menuitem" data-noprerender
+			   class="text-xs navlg:text-sm login-link font-display text-skin-menulink hover:underline hover:text-skin-menuhover"
+			   href="/account/login?returnUrl=%2F">
+				Log in
+			</a>
+			<span class="sr-hidden text-skin-menulink">&nbsp;/&nbsp;</span>
+		</li>
+		<li class="!m-0 navlg:font-light login-items nav:block hidden">
+			<a role="menuitem" data-noprerender
+			   class="text-xs navlg:text-sm font-display text-skin-menulink hover:underline hover:text-skin-menuhover"
+			   href="/account/login?returnUrl=%2F">
+				Sign Up
+			</a>
+		</li>
+			<gn-drawer v-if="isDrawerOpen" :key="loginDrawerKey"></gn-drawer>
+
+							</ul>
+							<button data-collapse-toggle="topnavigation-container" type="button"
+									class="inline-flex items-center justify-center w-10 h-10 px-4 py-2 rounded-lg nav:hidden focus:outline-none focus:ring-2 focus:ring-gray-100"
+									aria-controls="topnavigation-container" aria-expanded="false">
+								<span class="sr-only">Open main menu</span>
+								<i class="text-2xl icon-Menu text-skin-menulink"></i>
+							</button>
+						</div>
+					<div id="topnavigation-container"
+						 class="items-center justify-between hidden w-full mr-auto navlg:ml-8 nav:ml-4 nav:flex nav:w-auto nav:order-1">
+						<div class="hidden nav:block">
+							
+		<ul class="flex flex-col float-left p-4 mt-4 text-xs bg-transparent navlg:text-sm navlg:font-light font-display nav:p-0 navlg:space-x-4 nav:space-x-2 rtl:space-x-reverse nav:flex-row nav:mt-0"
+			data-navigation>
+			<li class="internal-link text-skin-menulink hover:text-skin-menuhover"><a href="/tee-times/hot-deals">Hot Deals</a></li><li class="internal-link text-skin-menulink hover:text-skin-menuhover"><a href="/tee-times/courses-near-me">Courses Near Me</a></li><li class="internal-link text-skin-menulink hover:text-skin-menuhover"><a href="/destinations">Destinations</a></li><li class="internal-link text-skin-menulink hover:text-skin-menuhover"><a href="/tee-times/best-golf-courses-near-me/search">Best Courses</a></li><li class="internal-link text-skin-menulink hover:text-skin-menuhover" data-badge="-" data-rewards="true"><a data-badge="-" data-rewards="true" href="/golfpass-hub">GolfPass Hub</a></li><li class="internal-link text-skin-menulink hover:text-skin-menuhover" data-badge="-" data-rewards="true"><a data-badge="-" data-rewards="true" href="/rewards">Rewards</a></li><li class="internal-link text-skin-menulink hover:text-skin-menuhover"><a href="/memberships/golfpass">Join GolfPass</a></li><li class="internal-link text-skin-menulink hover:text-skin-menuhover"><a href="/giftcards">Gift Cards</a></li>
+</ul>
+
+						</div>
+
+						<div class="block nav:hidden">
+								<ul id="hamburger-menu"
+		class="flex flex-col float-left w-full h-screen pb-20 overflow-scroll text-sm bg-skin-menu nav:pb-0 mb-9 nav:mb-0 font-display nav:space-x-4 rtl:space-x-reverse nav:flex-row nav:mt-0 nav:border-0"
+		data-navigation>
+		<div class="w-full" data-accordion="collapse" data-active-classes="bg-blue-100 text-blue-600" data-inactive-classes="text-gray-500" id="accordion-hamburger"><div class="border-t border-gray-200 mt-3 pt-3"><a class="flex items-center p-2 text-skin-menulink rounded-lg hover:bg-skin-menulinkhover group" href="#"></a></div><div><a class="flex items-center p-2 text-skin-menulink rounded-lg hover:bg-skin-menulinkhover group" data-badge="-" data-rewards="true" href="/rewards">Rewards</a></div><div><a class="flex items-center p-2 text-skin-menulink rounded-lg hover:bg-skin-menulinkhover group" href="https://golfnow.my.site.com/golfnowsupport/s/">Help</a></div><div class="border-t border-gray-200 mt-3 pt-3"><a class="flex items-center p-2 text-skin-menulink rounded-lg hover:bg-skin-menulinkhover group" href="#"></a></div><div><a class="flex items-center p-2 text-skin-menulink rounded-lg hover:bg-skin-menulinkhover group" href="/tee-times/hot-deals">Hot Deals</a></div><div><a class="flex items-center p-2 text-skin-menulink rounded-lg hover:bg-skin-menulinkhover group" href="/tee-times/courses-near-me">Courses Near Me</a></div><div><a class="flex items-center p-2 text-skin-menulink rounded-lg hover:bg-skin-menulinkhover group" href="/tee-times/best-golf-courses-near-me/search">Best Courses</a></div><div><a class="flex items-center p-2 text-skin-menulink rounded-lg hover:bg-skin-menulinkhover group" href="/destinations">Destinations</a></div><div><a class="flex items-center p-2 text-skin-menulink rounded-lg hover:bg-skin-menulinkhover group" href="/memberships/golfpass">Join GolfPass</a></div><div><a class="flex items-center p-2 text-skin-menulink rounded-lg hover:bg-skin-menulinkhover group" href="/giftcards">Gift Cards</a></div><div><a class="flex items-center p-2 text-skin-menulink rounded-lg hover:bg-skin-menulinkhover group" href="/golfpass-hub">GolfPass Hub</a></div><div class="border-t border-gray-200 mt-3 pt-3"><a class="flex items-center p-2 text-skin-menulink rounded-lg hover:bg-skin-menulinkhover group" href="#"></a></div><div><a class="flex items-center p-2 text-skin-menulink rounded-lg hover:bg-skin-menulinkhover group" href="/mobile">Download the App</a></div><div><a class="flex items-center p-2 text-skin-menulink rounded-lg hover:bg-skin-menulinkhover group" data-noprerender="true" href="/account/login">Log In</a></div><div><a class="flex items-center p-2 text-skin-menulink rounded-lg hover:bg-skin-menulinkhover group" data-noprerender="true" href="/account/create">Create an Account</a></div></div>
+	</ul>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+			<main id="homepage-app" class="min-h-screen home-widget-container" v-cloak>
+	
+<section id="gn_widget_csrf"><input name="__RequestVerificationToken" type="hidden" value="CfDJ8ONKN7OcHG9OsPoJCS8qhd7uU5lruHShUHRE-yUalyhpE_UQeLm3L2yB8SygrpruCe8KL5gx0uH9BNf8awMGDndOb9eQd_qMHk5gJ55aC7R3JGIZPS5a5YJXxk-hm_icqEJSLYD6E6OMAPHwE5i-Fz0" /></section>
+		<section id="homepagesearch" class=" gn_section" data-preloaded="true" style="min-height: 5.125rem;"
+				 v-cloak>
+<search-input-big class="grid grid-cols-10 gn_widget" style="min-height:5.125rem;" :minimumchar="3"
+				  :preview-top="20" search-cta="Search" :show-hot-deals-btn="true"
+				  :suggested-searches='[{"id":"hotDeals","name":"Hot Deals","url":"/tee-times/hot-deals","class":"bg-gradient-to-t from-deal-gradient-start to-deal-gradient-end text-white text-shadow geo-hotdeals","icon":"icon-Hot-Deals"},{"id":"coursesNearMe","name":"Courses Near Me","url":"/tee-times/courses-near-me","class":"bg-white geo-near-me","icon":"icon-Location"},{"id":"playNine","name":"9 Holes","url":"/go-play/play-nine","class":"bg-white top-rated","icon":"icon-Golfball"},{"id":"bestCoursesNearMe","name":"Best Courses","url":"/tee-times/best-golf-courses-near-me/search","class":"bg-white favorites","icon":"icon-Medal"},{"id":"privateCourses","name":"Private Courses","url":"/private-courses","class":"bg-white","icon":"icon-Flag"}]'
+				  other-searches-header=""
+				  :other-searches='[{"id":"simulators","name":"Simulators","url":"/indoor-golf-simulators","class":"bg-white simulators","icon":"icon-Golfer"},{"id":"clubFitting","name":"Custom Club Fittings","url":"/golf-club-fitting-near-me","class":"bg-white club-fitting","icon":"icon-Golfer"}]'>
+</search-input-big>
+		</section>
+		<section id="homepagebannerpromo" class="container mx-auto gn_section" data-preloaded="true" style="min-height: 21.875rem;"
+				 v-cloak>
+<homepage-banner-promo class="block gn_widget" category="homepage" promo-category="homepage-promo"
+					   device-display-mode="Large" banner-title="Homepage Banner" benefit="" cta=""
+					   deal-page-url="/tee-times/search#hotdealsonly=true&amp;daysout=1">
+	<div class="relative search-top-image" data-ssr-placeholder>
+		<picture>
+			<source media="(min-width: 1400px)" srcset="https://gqp7knph.cdn.imgeng.in//Content/images/hero-img/fallback-hero-xl.png" />
+			<source media="(min-width: 1000px)" srcset="https://gqp7knph.cdn.imgeng.in//Content/images/hero-img/fallback-hero.png" />
+			<img src="https://gqp7knph.cdn.imgeng.in//Content/images/hero-img/fallback-hero.png"
+				 alt="Homepage Banner"
+				 class="w-full max-w-full object-cover object-center h-44 md:h-64 lg:h-[21.875rem] md:rounded-xxl overflow-hidden"
+				 fetchpriority="high" />
+		</picture>
+	</div>
+</homepage-banner-promo>		</section>
+		<section id="explorelinks" class="container mx-auto mt-5 gn_section" data-preloaded="true" style="min-height: 13.136875rem;"
+				 v-cloak>
+<explore-links id="explore-homepage" style="min-height:13.136875rem;"
+			   data-slider-height="168">
+	<template #title>
+		Golf Courses on GolfNow
+	</template>
+	<template #contents>
+		<gn-tile-slider id="explore-tiles">
+			<gn-tile-slider-item
+				class="h-full overflow-hidden duration-300 border border-black/15 rounded-xxl lg:hover:-translate-y-1">
+				<a id="lnk-exp-hotdeals" class="w-full" data-expoption="Hot Deals"
+				   href="/tee-times/search#view=Course&sortby=Facilities.Distance&radius=25&hotdealsonly=true&daysout=1"
+				   v-on:click="handleExploreLinkClick">
+					<img src="https://gqp7knph.cdn.imgeng.in/Content/images/explore-hot-deal.png?imgeng=/w_auto,292.3&av=401838134" width="292" height="111" sizes="292px"
+						 alt="Explore Hot Deals" class="w-full" style="aspect-ratio: 292 / 111" />
+					<div class="grid items-center grid-cols-[18px,auto] gap-2 mx-2 lg:px-2 h-12">
+						<i class="text-base lg:text-lg icon-Hot-Deals text-deal" aria-hidden="true"></i>
+						<p
+							class="text-xs font-semibold lg:leading-4 lg:text-base text-skin-base font-display md:text-sm">
+							Tomorrow's <span class="text-deal">Hot Deals</span></p>
+						</div>
+					</a>
+				</gn-tile-slider-item>
+				<gn-tile-slider-item
+					class="h-full overflow-hidden duration-300 border border-black/15 rounded-xxl lg:hover:-translate-y-1">
+					<a id="lnk-exp-courses" class="w-full" data-expoption="Courses Near Me"
+					   href="/tee-times/courses-near-me" v-on:click="handleExploreLinkClick">
+						<img src="https://gqp7knph.cdn.imgeng.in/Content/images/explore-courses.png?imgeng=/w_auto,292.3&av=401838134" width="292" height="111" sizes="292px"
+							 class="w-full" alt="Explore Courses Near Me" />
+						<div class="grid items-center grid-cols-[18px,auto] gap-2 mx-2 lg:px-2 h-12">
+							<i class="text-base lg:text-lg icon-Location text-skin-base" aria-hidden="true"></i>
+							<p
+								class="text-xs font-semibold lg:leading-4 lg:text-base text-skin-base font-display md:text-sm">
+								Courses Near Me</p>
+							</div>
+						</a>
+					</gn-tile-slider-item>
+					<gn-tile-slider-item
+						class="h-full overflow-hidden duration-300 border border-black/15 rounded-xxl lg:hover:-translate-y-1">
+						<a id="lnk-exp-favs" class="w-full" data-expoption="Your Favorite Courses"
+						   href="/tee-times/favorites" v-on:click="handleExploreLinkClick">
+							<img src="https://gqp7knph.cdn.imgeng.in/Content/images/explore-favorites.png?imgeng=/w_auto,292.3&av=401838134" width="292" height="111" sizes="292px"
+								 class="w-full" alt="Explore Your Favorite Courses" />
+							<div class="grid items-center grid-cols-[18px,auto] gap-2 mx-2 lg:px-2 h-12">
+								<i class="text-base lg:text-lg text-error icon-Heart-Filled" aria-hidden="true"></i>
+								<p
+									class="text-xs font-semibold lg:leading-4 lg:text-base text-skin-base font-display md:text-sm">
+									Your Favorites</p>
+								</div>
+							</a>
+						</gn-tile-slider-item>
+
+						<gn-tile-slider-item
+							class="h-full overflow-hidden duration-300 border border-black/15 rounded-xxl lg:hover:-translate-y-1">
+							<a id="lnk-exp-golfpass" class="w-full" data-expoption="Golfpass Membership" href="/memberships/golfpass"
+							   v-on:click="handleExploreLinkClick">
+								<img src="https://gqp7knph.cdn.imgeng.in/Content/images/explore/explore-golfpass.webp?imgeng=/w_auto,292.3&av=401838134" width="292" height="111"
+									 sizes="292.3px" class="w-full" alt="Golfpass Membership" />
+								<div class="grid items-center grid-cols-[18px,auto] gap-2 mx-2 lg:px-2 h-12">
+									<i class="text-base lg:text-lg icon-GolfPass" aria-hidden="true"></i>
+									<p
+										class="text-xs font-semibold lg:leading-4 lg:text-base text-skin-base font-display md:text-sm">
+										Start Saving Now</p>
+									</div>
+								</a>
+							</gn-tile-slider-item>
+
+							<gn-tile-slider-item
+								class="h-full overflow-hidden duration-300 border border-black/15 rounded-xxl lg:hover:-translate-y-1">
+								<a id="lnk-simulators" class="w-full" data-expoption="Indoor Simulators"
+								   href="/indoor-golf-simulators" v-on:click="handleExploreLinkClick">
+									<img src="https://gqp7knph.cdn.imgeng.in/Content/images/explore/explore-simulator.webp?imgeng=/w_auto,292.3&av=401838134" width="292" height="111"
+										 sizes="292.3px" alt="Indoor Simulators" class="w-full" />
+									<div class="grid items-center grid-cols-[18px,auto] gap-2 mx-2 lg:px-2 h-12">
+										<i class="text-base lg:text-lg icon-Golfer" aria-hidden="true"></i>
+										<p
+											class="text-xs font-semibold lg:leading-4 lg:text-base text-skin-base font-display md:text-sm">
+											Simulators Near Me</p>
+										</div>
+									</a>
+								</gn-tile-slider-item>
+							</gn-tile-slider>
+						</template>
+					</explore-links>		</section>
+		<section id="upcomingreservations" class=" gn_section" data-preloaded="false" style="min-height: 12.5rem;"
+				 v-cloak>
+				<deferred-widget-section section-id="upcomingreservations"></deferred-widget-section>
+		</section>
+		<section id="previouslyvisitedcourses" class="hidden container mx-auto gn_section" data-preloaded="true" style="min-height: 9.8125rem;"
+				 v-cloak>
+<visited-courses :items-to-show="3" class="gn_widget" style="min-height:9.8125rem;"
+				 data-widgetidentifier="Recently Viewed" :renderless="true">
+	<template #header>
+		<h2 class="mb-3 mt-4 font-semibold lg:text-xl text-skin-base font-display">Recently Viewed Golf Courses</h2>
+	</template>
+	<template #bookings="{ courses }">
+		<template v-for="course in courses" :key="course.id">
+			<visited-course-item :course-item="course" />
+		</template>
+	</template>
+	<template #facilities="{ courses }">
+		<template v-for="course in courses" :key="course.id">
+			<visited-course-item :course-item="course" />
+		</template>
+	</template>
+</visited-courses>		</section>
+		<section id="home_interactive" class=" gn_section" data-preloaded="false" style="min-height: 7.1875rem;"
+				 v-cloak>
+				<deferred-widget-section section-id="home_interactive"></deferred-widget-section>
+		</section>
+		<section id="hotdealhomepagetiles" class="py-5 gn_section" data-preloaded="true" style="min-height: 26.25rem;"
+				 v-cloak>
+<hot-deal-homepage-tiles :items-to-show="5" :search-radius="25" current-address="" :hide-if-empty="true"
+						 elem-selector="section#hotdealhomepagetiles" radius-units="mi"
+						 load-status="pending" class=" gn_widget" style="min-height:26.25rem;"
+						 ref="hotdealHomepageTiles" data-slider-height=""
+						 data-widgetidentifier="Hot Deals Near Me">
+</hot-deal-homepage-tiles>		</section>
+		<section id="featuredcourses-hpw" class="py-5 home gn_section" data-preloaded="true" style="min-height: 26.25rem;"
+				 v-cloak>
+<featured-courses class=" gn_widget" style="min-height:26.25rem;" :hide-if-empty="true"
+				  :default-items="10" :default-radius="35"
+				  units="mi" elem-selector="section#featuredcourses-hpw" ref="featuredCourses"
+				  data-slider-height="254" data-widgetidentifier="Featured Courses Near Me">
+	<template #header="{ city, city2, openChangeLocationModal, shouldShowFeeLabel }">
+		<div class="grid items-center grid-cols-1 gap-1 mb-4 md:grid-cols-[1fr_auto]">
+			<div>
+				<h2 class="mb-3 font-semibold lg:text-xl text-skin-base font-display">
+					Featured Golf Courses Near Me -
+					<span id="featured-courses-city">{{ city2() }}</span>
+					<a v-on:click="openChangeLocationModal"
+						   class="ml-1 text-sm underline cursor-pointer geo-changelocation text-link"
+						   data-reveal-id="change-location-modal">
+						Change Location
+					</a>
+				</h2>
+				<convenience-fee-label v-if="shouldShowFeeLabel" class="hidden md:block" />
+			</div>
+			<div class="md:text-right">
+				<gn-link href="/featured-courses" size="md" class="inline-block w-full md:w-auto"
+						 id="all-featured-courses-hpw-link" variant="solid-secondary">
+					View all featured courses near me
+				</gn-link>
+			</div>
+		</div>
+		<div v-if="shouldShowFeeLabel" class="my-2 md:-top-5">
+			<convenience-fee-label class="md:hidden" />
+		</div>
+	</template>
+	<template #noresults="{ noResultDescription2 }">
+		<p class="my-3 text-base">
+			{{ noResultDescription2() }}
+		</p>
+	</template>
+	<template #footer="footerProps">
+		<div class="hidden text-center record-paging-container">
+			<a class="underline show-more text-link underline-offset-4">
+				<i class="icon-Chevron-Down"></i>
+				Show more featured courses
+			</a>
+		</div>
+	</template>
+</featured-courses>		</section>
+		<section id="home_1140x70_main" class=" gn_section" data-preloaded="false" style="min-height: 7.1875rem;"
+				 v-cloak>
+				<deferred-widget-section section-id="home_1140x70_main"></deferred-widget-section>
+		</section>
+		<section id="homecourse" class=" gn_section" data-preloaded="false" style="min-height: 29.375rem;"
+				 v-cloak>
+				<deferred-widget-section section-id="homecourse"></deferred-widget-section>
+		</section>
+		<section id="nineholecourses" class="py-6 bg-gopher gn_section" data-preloaded="false" style="min-height: 23.75rem;"
+				 v-cloak>
+				<deferred-widget-section section-id="nineholecourses"></deferred-widget-section>
+		</section>
+		<section id="mobileapps" class=" gn_section" data-preloaded="false" style="min-height: 16.25rem;"
+				 v-cloak>
+				<deferred-widget-section section-id="mobileapps"></deferred-widget-section>
+		</section>
+		<section id="spotlightarticles" class=" gn_section" data-preloaded="false" style="min-height: 18.0625rem;"
+				 v-cloak>
+				<deferred-widget-section section-id="spotlightarticles"></deferred-widget-section>
+		</section>
+		<section id="featureddestinations" class="home gn_section" data-preloaded="false" style="min-height: 31.25rem;"
+				 v-cloak>
+				<deferred-widget-section section-id="featureddestinations"></deferred-widget-section>
+		</section>
+		<section id="otherdestinations" class=" gn_section" data-preloaded="false" style="min-height: 43.75rem;"
+				 v-cloak>
+				<deferred-widget-section section-id="otherdestinations"></deferred-widget-section>
+		</section>
+		<section id="quick-links" class=" gn_section" data-preloaded="false" style="min-height: 13rem;"
+				 v-cloak>
+				<deferred-widget-section section-id="quick-links"></deferred-widget-section>
+		</section>
+
+
+		<div class="mb-6 bg-gray-300 failed-location-msg-wrapper" ref="failedLocationMsgWrapper">
+			<div class="container mx-auto header-container">
+				<div class="p-2 text-lg font-semibold text-center">
+					<span v-cloak>
+						No {{ failedLocationWidgetName }} tee times available for {{ failedLocationCurrentCity }}.
+						<a class="underline cursor-pointer default-geo-changelocation text-link underline-offset-4"
+							   v-on:click="showChangeLocationModal=true">
+							<i class="icon-Location" aria-hidden="true"></i>
+							Please try another location
+						</a>
+					</span>
+				</div>
+			</div>
+		</div>
+	<modal size="small" v-if="showMessageModal" :show="showMessageModal" :z-index="100" :hide-footer-close-button="false" @close="ackBtnText.length ? acknowledgeMessageModal(false) : closeMessageModal()">
+
+	<template #footer="">
+		<div v-if="ackBtnText.length" class="flex gap-10 modalButtons shared-modals">
+			<gn-button v-on:click="acknowledgeMessageModal(true)" variant="solid-secondary"
+					   class="w-full favs-ack-confirm-btn">
+				{{ ackBtnText }}
+			</gn-button>
+			<template v-if="closeButtonText.length && closeButtonText !== ackBtnText">
+				<gn-button v-on:click="acknowledgeMessageModal(false)" variant="outline-primary"
+						   class="w-full favs-ack-cancel-btn">
+					{{ closeButtonText }}
+				</gn-button>
+			</template>
+		</div>
+		<div v-else class="modalButtons shared-modals">
+			<gn-button v-on:click="closeMessageModal" variant="solid-primary" aria-label="Close">
+				{{ closeButtonText }}
+			</gn-button>
+		</div>
+	</template>
+</modal>
+
+	<modal size="small" v-if="showHtmlMessageModal" :show="showHtmlMessageModal" :z-index="100" :hide-footer-close-button="false" @close="ackBtnText ? acknowledgeHtmlMessageModal(false) : closeHtmlMessageModal()">
+	<template #htmlbody="">
+		<div v-html="htmlContent"></div>
+	</template>
+	<template #footer="">
+		<div v-if="ackBtnText" class="flex gap-10 modalButtons shared-html-modals">
+			<gn-button v-on:click="acknowledgeHtmlMessageModal(true)" variant="solid-primary"
+					   class="w-full mr-4 favs-ack-confirm-btn">
+				{{ ackBtnText }}
+			</gn-button>
+			<gn-button v-on:click="acknowledgeHtmlMessageModal(false)" variant="outline-primary"
+					   class="w-full favs-ack-cancel-btn">
+				{{ closeButtonText }}
+			</gn-button>
+		</div>
+		<div v-else class="modalButtons shared-html-modals">
+			<gn-button v-on:click="closeHtmlMessageModal" variant="solid-primary" aria-label="Close">
+				{{ closeButtonText }}
+			</gn-button>
+		</div>
+	</template>
+</modal>
+	<modal size="small" v-if="showChangeLocationModal" :show="showChangeLocationModal" :z-index="100" :hide-footer-close-button="false" @close="closeChangeLocationModal">
+	<template #header="">
+		<h2 class="text-2xl font-semibold text-skin-base font-display">
+			Select your Location
+		</h2>
+		<Gn-Button variant="unstyled" size="none" v-on:click="closeChangeLocationModal"
+				   class="cursor-pointer close-reveal-modal" role="button" aria-label="Close">
+			<i class="text-2xl icon-Close" aria-hidden="true"></i>
+		</Gn-Button>
+	</template>
+	<template #body="">
+		<p class="my-4 text-base change-location-note">
+			This setting helps us find where you&#x27;re currently located so we can always serve you local results if you&#x27;re checking out Hot Deals near you or Special Rate tee times.
+		</p>
+		<div id="htmlcontent">
+			<location-search
+							 place-holder="Enter your city, postal code or location">
+			</location-search>
+		</div>
+	</template>
+	<template #footer="">
+		<Gn-Button id="save-location-change" variant="solid-secondary" size="md"
+				   :class="['right', { disabled: saveChangedLocationBtnDisabled }]"
+				   :disabled="saveChangedLocationBtnDisabled" v-on:click="saveChangedLocation">
+			Save Changes
+		</Gn-Button>
+	</template>
+</modal>
+	
+<modal size="small" v-if="showVisitorLocationModal" :show="showVisitorLocationModal" :z-index="100" :hide-footer-close-button="true" @close="closeVisitorLocationModal">
+	<template #htmlbody="">
+		<div class="p-2">
+			<Gn-Button id="stay-location" variant="outline-primary" class="pr-4 close-reveal-modal"
+				@click="closeVisitorLocationModal">
+				Stay Here
+			</Gn-Button>
+			<span class="p-4">&nbsp;</span>
+			<Gn-Button id="go-location" variant="solid-primary" class="right" @click="handleLetsGoClick">
+				Let&#x27;s go
+			</Gn-Button>
+		</div>
+	</template>
+</modal>
+
+</main>
+
+			
+
+	<div id="cookieConsent"
+		 class="fixed bottom-0 right-0 z-10 hidden w-full py-4 text-xs bg-white border border-gray-400 rounded-lg shadow-sm md:w-96 md:right-3 md:bottom-3 text-skin-base md:text-sm"
+		 role="alert">
+		<p>Cookie Policy</p><br />
+		We and our partners use cookies on this site to improve our service, perform analytics, personalize advertising,
+		measure advertising performance, and remember website preferences. By using the site, you consent to these cookies.
+		For more information on cookies including how to manage your consent visit our
+		<a href="https://www.versantprivacy.com/privacy/cookies"
+		   rel="noopener noreferrer" target="_blank">Cookie Policy.</a>
+		<button type="button" class="accept-policy close" data-dismiss="alert" aria-label="Close"
+				data-cookie-string=".AspNet.Consent=yes; expires=Sat, 25 Sep 2027 20:03:58 GMT; path=/; secure; samesite=none">
+			<span aria-hidden="true">Accept</span>
+		</button>
+	</div>
+	<script>
+		(function () {
+			var button = document.querySelector("#cookieConsent button[data-cookie-string]");
+			button.addEventListener("click", function (event) {
+				document.cookie = button.dataset.cookieString;
+			}, false);
+		})();
+	</script>
+
+				<span id="footer-intersection"></span>
+					<section class="relative z-10 flex justify-center h-12 overflow-visible bg-secondary md:h-20">
+	<div class="flex items-center gopher-container">
+		<div class="grid items-center h-20 shrink-0">
+			<p class="text-lg font-semibold text-white uppercase lg:text-4xl md:text-2xl font-display">
+				Get your golf on
+			</p>
+		</div>
+		<img src="https://gqp7knph.cdn.imgeng.in/Content/images/Gopher-hand-ball.png?imgeng=/w_auto,96&av=401838134"
+			 sizes="(max-width: 768px) 56px, 96px" loading="lazy" width="96" height="96"
+			 class="relative gopher-hand-ball md:max-w-24 max-w-14 md:left-auto left-4 -bottom-[0.3rem]" alt=""
+			 aria-hidden="true" />
+		<img src="https://gqp7knph.cdn.imgeng.in/Content/images/Gopher-Half-head.png?imgeng=/w_auto,175&amp;h_120px&av=401838134"
+			 sizes="(max-width: 768px) 25vw, 175px" loading="lazy" width="175" height="120"
+			 class="relative w-auto md:h-[120px] h-16 gopher-half-head md:bottom-5 bottom-2 md:right-8 right-0"
+			 alt="gopher-half-head" />
+		<img src="https://gqp7knph.cdn.imgeng.in/Content/images/Gopher-glove.png?imgeng=/w_auto,96&av=401838134"
+			 sizes="(max-width: 768px) 40px, 96px" loading="lazy" width="96" height="96"
+			 class="relative right-0 w-auto aspect-square gopher-glove md:top-[2.9rem] top-6 md:right-8 md:max-w-24 max-w-10"
+			 alt="" aria-hidden="true" />
+	</div>
+</section>
+
+				<footer id="footer" class="sticky-stopper" role="contentinfo" v-cloak>
+						<div class="pt-3 bg-skin-footer md:pt-7">
+	<div id="footer-container" class="container p-4 pt-4 mx-auto lg:pt-14 pb-9">
+		<section class="grid grid-cols-2 gap-2 lg:grid-cols-6 md:grid-cols-4 lg:gap-4">
+			<div class="mr-5">
+				<h2 class="mb-3 text-base font-semibold text-white uppercase font-display font-heading">Information</h2>
+				<ul class="text-sm text-white">
+					<li class="mb-1.5 hover:text-primary-100"><a href="/support/about-us">About Us</a></li>
+						<li class="mb-1.5 hover:text-primary-100"><a rel="noopener"
+																		 href="https://careers.versantmedia.com">Careers</a></li>
+							<li class="mb-1.5 hover:text-primary-100"><a href="/support/contact-us"
+																		 rel="nofollow">Contact
+								Us</a></li>
+								<li class="mb-1.5 hover:text-primary-100"><a
+									rel="noopener noreferrer"
+									href="https://golfnow.my.site.com/golfnowsupport/s/" target="_blank">Help</a></li>
+									<li class="mb-1.5 hover:text-primary-100"><a href="/giftcards">Gift Cards</a></li>
+										<li class="mb-1.5 hover:text-primary-100"><a href="/rewards">Rewards</a></li>
+											<li class="mb-1.5 hover:text-primary-100"><a rel="noopener noreferrer"
+																							 href="https://memberships.golfnow.com/premier-card/" target="_blank">Premier Card</a></li>
+												<li class="mb-1.5 hover:text-primary-100"><a rel="noopener noreferrer"
+																							 href="https://www.versantprivacy.com/privacy/cookies#accordionheader3"
+																							 target="_blank">Ad
+													Choices</a></li>
+													<li class="mb-1.5 hover:text-primary-100"><a rel="noopener noreferrer"
+																									 href="https://www.versantprivacy.com/privacy?intake=Golf&amp;appname=GolfNow"
+																									 target="_blank">Privacy Policy</a></li>
+														<!-- OneTrust Cookies Settings button start -->
+														<li class="mb-1.5 hover:text-primary-100">
+															<a id="ot-sdk-btn" class="mt-2 !text-sm max-w-48 optanon-show-settings ot-sdk-show-settings">
+																<img src="https://gqp7knph.cdn.imgeng.in/Content/images/icons/privacyoptions.svg?av=401838134" alt="Privacy Options"
+																	 loading="lazy" width="30" height="14" class="float-left mt-1 mr-1 w-7" />
+																Cookie Preferences</a>
+															</li>
+															<!-- OneTrust Cookies Settings button end -->
+															<li class="mb-1.5 hover:text-primary-100"><a rel="noopener noreferrer"
+																											 href="https://www.versantprivacy.com/privacy/california-consumer-privacy-act"
+																											 target="_blank">CA Notice</a></li>
+																<li class="mb-1.5 hover:text-primary-100"><a href="/support/about-us/terms">Terms of Service</a></li>
+																</ul>
+															</div>
+															<div>
+																<h2 class="mb-3 text-base font-semibold text-white uppercase font-display font-heading">Resources</h2>
+																<ul>
+																	<li class="text-white hover:text-primary-100 text-sm mb-1.5"><a href="/destinations">Destinations</a></li>
+																		<li class="text-white hover:text-primary-100 text-sm mb-1.5"><a href="/tee-times/best-deals">Best Tee Time Deals</a>
+																		</li>
+																		<li class="text-white hover:text-primary-100 text-sm mb-1.5"><a href="/tee-times/weekend">Weekend Tee Times</a></li>
+																			<li class="text-white hover:text-primary-100 text-sm mb-1.5"><a href="/redeem">Redeem GolfPass Gift</a></li>
+																				<li class="text-white hover:text-primary-100 text-sm mb-1.5"><a href="/course-directory">Course Directory</a></li>
+																					<li class="text-white hover:text-primary-100 text-sm mb-1.5"><a href="/private-golf-club-directory">Private Club Directory</a></li>
+																						<li class="text-white hover:text-primary-100 text-sm mb-1.5"><a href="/golfnow-reviews">GolfNow Reviews</a></li>
+																							<li class="text-white hover:text-primary-100 text-sm mb-1.5"><a href="/mobile">Mobile Apps</a></li>
+																								<li class="text-white hover:text-primary-100 text-sm mb-1.5"><a rel="noopener noreferrer"
+																																									href="https://promotions.golfnow.com/" target="_blank">Promotions</a></li>
+																									<li class="text-white hover:text-primary-100 text-sm mb-1.5"><a rel="noopener noreferrer"
+																																										href="https://blog.golfnow.com/" target="_blank">Blog</a></li>
+																										<li class="text-white hover:text-primary-100 text-sm mb-1.5"><a href="/indoor-golf-simulators">Simulators</a></li>
+																											<li class="text-white hover:text-primary-100 text-sm mb-1.5"><a href="/private-golf-clubs">Private Clubs</a></li>
+																												<li class="text-white hover:text-primary-100 text-sm mb-1.5"><a href="/featured-courses">Featured Courses</a>
+																												</li>
+																												<li class="text-white hover:text-primary-100 text-sm mb-1.5"><a href="/spotlight">GolfNow Spotlights</a>
+																												</li>
+																												<li class="text-white hover:text-primary-100 text-sm mb-1.5"><a href="/golf-club-fitting-near-me">Custom Club Fittings</a>
+																												</li>
+																											</ul>
+																										</div>
+																										<div>
+																											<h2 class="mb-3 text-base font-semibold text-white uppercase font-display font-heading">Businesses</h2>
+																											<ul class="text-sm text-white">
+																												<li class="mb-1.5 hover:text-primary-100">
+																													<a rel="noopener noreferrer" href="https://support.business.golfnow.com/" target="_blank">
+																														Partner Support
+																													</a>
+																												</li>
+																												<li class="mb-1.5 hover:text-primary-100">
+																													<a rel="noopener noreferrer" href="https://business.golfnow.com" target="_blank">
+																														Golf Facilities
+																													</a>
+																												</li>
+																												<li class="mb-1.5 hover:text-primary-100">
+																													<a href="/golfnow-business">GolfNow for Courses</a>
+																												</li>
+																												<li class="text-white hover:text-primary-100 text-sm mb-1.5">
+																													<a href="/business-partnership/form">List My Facility on GolfNow</a>
+																												</li>
+																												<li class="text-white hover:text-primary-100 text-sm mb-1.5">
+																													<a href="/business-partnership">Other Partnership Requests</a>
+																												</li>
+																											</ul>
+																										</div>
+																										<div>
+																											<h2 class="mb-3 text-base font-semibold text-white uppercase font-display font-heading">Partner Brands
+																											</h2>
+																											<ul class="text-sm text-white">
+																												<li class="mb-1.5 hover:text-primary-100">
+																													<a rel="noopener noreferrer"
+																														   href="https://www.golfchannel.com/" target="_blank">
+																														Golf Channel
+																													</a>
+																												</li>
+																												<li class="mb-1.5 hover:text-primary-100">
+																													<a rel="noopener noreferrer"
+																														   href="https://www.golfpass.com/" target="_blank">
+																														GolfPass
+																													</a>
+																												</li>
+																												<li class="mb-1.5 hover:text-primary-100">
+																													<a rel="noopener noreferrer"
+																														   href="https://compete.golfnow.com/about" target="_blank">
+																														GolfNow Compete
+																													</a>
+																												</li>
+																												<li class="mb-1.5 hover:text-primary-100">
+																													<a rel="noopener noreferrer"
+																														   href="https://www.teeoff.com/" target="_blank">
+																														TeeOff
+																													</a>
+																												</li>
+																												<li class="mb-1.5 hover:text-primary-100">
+																													<a rel="noopener noreferrer"
+																														   href="https://www.sportsengine.com/solutions" target="_blank">
+																														SportsEngine HQ
+																													</a>
+																												</li>
+																												<li class="mb-1.5 hover:text-primary-100">
+																													<a rel="noopener noreferrer"
+																														   href="https://motion.sportsengine.com/" target="_blank">
+																														SportsEngine Motion
+																													</a>
+																												</li>
+																											</ul>
+																										</div>
+																										<div class="col-span-2">
+																											<!-- Email Signup -->
+																											<quick-optin-email-subscribe :append-to="null">
+																												<template #form>
+																														<modal size="small" v-if="showMessageModal" :show="showMessageModal" :z-index="100" :hide-footer-close-button="false" @close="ackBtnText.length ? acknowledgeMessageModal(false) : closeMessageModal()">
+
+	<template #footer="">
+		<div v-if="ackBtnText.length" class="flex gap-10 modalButtons shared-modals">
+			<gn-button v-on:click="acknowledgeMessageModal(true)" variant="solid-secondary"
+					   class="w-full favs-ack-confirm-btn">
+				{{ ackBtnText }}
+			</gn-button>
+			<template v-if="closeButtonText.length && closeButtonText !== ackBtnText">
+				<gn-button v-on:click="acknowledgeMessageModal(false)" variant="outline-primary"
+						   class="w-full favs-ack-cancel-btn">
+					{{ closeButtonText }}
+				</gn-button>
+			</template>
+		</div>
+		<div v-else class="modalButtons shared-modals">
+			<gn-button v-on:click="closeMessageModal" variant="solid-primary" aria-label="Close">
+				{{ closeButtonText }}
+			</gn-button>
+		</div>
+	</template>
+</modal>
+
+<div id="footer-email-signup" class="transparent lg:block md:hidden">
+		<div class="email-signup-header-footer">
+			<h4 class="mb-3 text-base font-semibold text-white uppercase font-display font-heading">
+				Stay Connected
+			</h4>
+			<p id="footer-email-optin-copy" class="block mb-4 text-white">
+				Yes! Please send me offers and news from GolfNow and GolfPass by email about products and services
+				offered by us and our Partners
+				<gn-tooltip id="email-signup-footer">
+					GolfNow and GolfPass will send you news, offers, and exclusives from partners that we think
+					would be of interest to golfers like you.
+				</gn-tooltip>
+			</p>
+		</div>
+
+	<form autocomplete="off" class="grid gn-form quick-optin-form" id="quickOptinForm_Footer" ref="quickOptinForm_Footer" method="post" data-prefix="footer" action="/">
+		<gn-input type="email" id="Footer-Email" v-model="model.email" class="border-white bg-primary text-white"
+				  variant="floatingLabel" bg-color="bg-skin-footer" txt-color="text-white" name="Email" label="* Email"
+				  autocomplete="off"></gn-input>
+		<gn-input type="text" id="Footer-PostalCode" v-model="model.postalCode"
+				  class="bg-primary border-white signup-postal-footer text-white" variant="floatingLabel"
+				  bg-color="bg-skin-footer" txt-color="text-white" name="PostalCode" label="* Postal Code"
+				  autocomplete="off"></gn-input>
+		<input type="hidden" id="Footer-StateProv" class="signup-state" name="StateProv" />
+		<input type="hidden" id="Footer-Latitude" class="signup-latitude" name="Latitude" />
+		<input type="hidden" id="Footer-Longitude" class="signup-longitude" name="Longitude" />
+		<input type="hidden" id="Footer-BusinessUnitId" class="signup-businessUnitId" name="BusinessUnitId"
+			   value="1" />
+		<input type="hidden" id="Footer-Source" class="signup-source" name="Source" value="100" />
+		<input type="hidden" id="Footer-SourceType" class="signup-sourceType" name="SourceType"
+			   value="100_QuickEmailSignUp" />
+
+		<gn-button v-on:btn-click.prevent="handleEmailOptInSubmit" type="submit" variant="solid-secondary" size="md"
+				   class="w-full mb-4">Subscribe</gn-button>
+	</form>
+</div>
+
+																												</template>
+																											</quick-optin-email-subscribe>
+																											<h2 class="mt-2 mb-4 text-base font-semibold text-white uppercase font-display">Our Mobile Apps</h2>
+																											<ul class="flex items-center mb-3">
+																												<!-- GolfNow App -->
+																												<li class="inline-block">
+																													<img src="https://gqp7knph.cdn.imgeng.in/Content/images/app-icons/gn-app.webp?imgeng=/w_45&av=401838134" width="45"
+																														 sizes="45px" alt="GolfNow app" class="mr-3 rounded-lg app-icon" loading="lazy"
+																														 title="GolfNow App">
+																												</li>
+																												<li class="inline-block">
+																													<a rel="nofollow noopener noreferrer" class="self-center"
+																														   href="https://control.kochava.com/v1/cpi/click?campaign_id=kogolfnow-ios-prod-w7za918e6667c3bb&network_id=7617&site_id=1&device_id=device_id"
+																														   target="_blank">
+																														<img src="https://gqp7knph.cdn.imgeng.in/Content/images/Download_on_the_App_Store_Badge_US.svg?imgeng=/w_129&av=401838134"
+																															 sizes="129px" alt="GolfNow App Store" width="129" height="40" class="h-10 mr-2" loading="lazy"
+																															 title="GolfNow App Store" />
+																													</a>
+																												</li>
+																												<li class="inline-block">
+																													<a rel="nofollow noopener noreferrer"
+																														   href="https://control.kochava.com/v1/cpi/click?campaign_id=kogolfnow-android-prod-90lba42b8cc51249&network_id=7617&site_id=1&device_id=device_id"
+																														   target="_blank">
+																														<img src="https://gqp7knph.cdn.imgeng.in/Content/images/app-icons/google-play-badge.svg?imgeng=/w_129&av=401838134"
+																															 sizes="129px" alt="GolfNow App Google Play" width="129" height="40" class="h-10" loading="lazy" />
+																													</a>
+																												</li>
+																											</ul>
+																											<ul class="flex items-center mb-3">
+																												<!-- GolfPass App -->
+																												<li class="inline-block">
+																													<img src="https://gqp7knph.cdn.imgeng.in/Content/images/app-icons/golfpass-app.svg?imgeng=/w_45&av=401838134"
+																														 sizes="45px" width="45" class="mr-3 app-icon" loading="lazy" style="border-radius: 8px;"
+																														 alt="GolfPass App" title="GolfPass App">
+																												</li>
+																												<li class="inline-block">
+																													<a class="self-center" href="https://apps.apple.com/us/app/golfpass-video/id1448493740"
+																														   target="_blank">
+																														<img src="https://gqp7knph.cdn.imgeng.in/Content/images/Download_on_the_App_Store_Badge_US.svg?imgeng=/w_129&av=401838134"
+																															 sizes="129px" width="129" height="40" class="h-10 mr-2" loading="lazy" alt="GolfPass App Store" />
+																													</a>
+																												</li>
+																												<li class="inline-block">
+																													<a href="https://play.google.com/store/apps/details?id=com.golfchannel.pass&hl=en_US"
+																														   target="_blank">
+																														<img src="https://gqp7knph.cdn.imgeng.in/Content/images/app-icons/google-play-badge.svg?imgeng=/w_129&av=401838134"
+																															 sizes="129px" width="129" height="40" loading="lazy" class="h-10" alt="Google Play" />
+																													</a>
+																												</ul>
+																												<ul class="flex items-center mb-3">
+																													<!-- Compete App -->
+																													<li class="inline-block">
+																														<img src="https://gqp7knph.cdn.imgeng.in/Content/images/app-icons/compete-app.svg?imgeng=/w_45&av=401838134" width="45"
+																															 sizes="45px" alt="Golf Channel App" class="mr-3 rounded-lg app-icon" loading="lazy">
+																													</li>
+																													<li class="inline-block">
+																														<a class="self-center"
+																															   href="https://apps.apple.com/bm/app/golfnow-compete-tournaments/id1451640918"
+																															   target="_blank">
+																															<img src="https://gqp7knph.cdn.imgeng.in/Content/images/Download_on_the_App_Store_Badge_US.svg?imgeng=/w_129&av=401838134"
+																																 sizes="129px" alt="Golf Channel App Store" width="129" height="40" class="h-10 mr-2" loading="lazy" />
+																														</a>
+																													</li>
+																													<li class="inline-block">
+																														<a href="https://play.google.com/store/apps/details?id=com.golfnow.compete&hl=en_US"
+																															   target="_blank">
+																															<img src="https://gqp7knph.cdn.imgeng.in/Content/images/app-icons/google-play-badge.svg?imgeng=/w_129&av=401838134"
+																																 sizes="129px" alt="Golf Channel Google Play" width="129" height="40" class="h-10" loading="lazy" />
+																														</a>
+																													</ul>
+																												</div>
+																											</section>
+
+																											<div class="container mx-auto mt-6 mb-6 border-t border-gray-4"> </div>
+																											<section class="container grid grid-cols-2 gap-4 pb-10 mx-auto">
+																												<ul class="float-left">
+																													<li class="inline-block">
+																														<a rel="nofollow noopener noreferrer" href="https://www.facebook.com/golfnow" target="_blank"
+																															   class="mr-2 text-white">
+																															<i class="text-xl icon-Facebook" aria-hidden="true"></i>
+																															<span class="sr-only">Facebook</span>
+																														</a>
+																													</li>
+																													<li class="inline-block">
+																														<a rel="nofollow noopener noreferrer" href="https://twitter.com/golfnow" target="_blank"
+																															   class="mr-2 text-white">
+																															<i class="text-xl icon-X" aria-hidden="true"></i>
+																															<span class="sr-only">X</span>
+																														</a>
+																													</li>
+																													<li class="inline-block">
+																														<a rel="nofollow noopener noreferrer" href="https://instagram.com/golfnow" target="_blank"
+																															   class="mr-2 text-white">
+																															<i class="text-xl icon-Instagram" aria-hidden="true"></i>
+																															<span class="sr-only">Instagram</span>
+																														</a>
+																													</li>
+																													<li class="block">
+																														<p class="mt-3 text-white text-xxs">© Copyright 2026 GolfNow. All rights reserved.
+																														</p>
+																													</li>
+																												</ul>
+																											</section>
+																										</div>
+																									</div>
+
+				</footer>
+		</div>
+		<div id="modal-container"></div>
+		<div id="widget-holding-area" class="hidden"></div>
+		<div id="tool-tip-holding-area" class="container invisible h-0 mx-auto"></div>
+		<input id="inputCurrentDate" style="display: none" />
+	</div>
+	
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a40ca2a27bbd55fa',t:'MTc5MDM2NjYzOA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+
+</html>
