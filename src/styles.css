@@ -79,3 +79,9 @@ footer { margin-top: 20px; color: var(--muted); font-size: 13px; }
 .pick-row > div { display: grid; min-width: 0; }
 .pick-row:hover, .pick-row:focus-visible { background: var(--rule); }
 .count { scroll-margin-top: 12px; }
+
+.favbar { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }
+.fav { font: inherit; padding: 6px 12px; border: 1px solid var(--rule); border-radius: 999px; background: var(--surface); color: var(--ink); cursor: pointer; }
+.fav.on { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 600; }
+.favbar small { color: var(--muted); }
+.favbar small a { color: var(--accent); }

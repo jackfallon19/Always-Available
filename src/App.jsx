@@ -53,10 +53,23 @@ export default function App() {
     }
   })
   const [showCourses, setShowCourses] = useState(false)
+  const [favoritesOnly, setFavoritesOnly] = useState(() => {
+    try {
+      return localStorage.getItem('favoritesOnly') === '1'
+    } catch {
+      return false
+    }
+  })
 
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('favoritesOnly', favoritesOnly ? '1' : '0')
+    } catch {}
+  }, [favoritesOnly])
 
   useEffect(() => {
     try {
@@ -75,7 +88,7 @@ export default function App() {
     const ctrl = new AbortController()
     setLoading(true)
     setError(null)
-    fetch(`/api/tee-times?date=${date}`, { signal: ctrl.signal })
+    fetch(`/api/tee-times?date=${date}${favoritesOnly ? '&favorites=1' : ''}`, { signal: ctrl.signal })
       .then(async (r) => {
         const body = await r.json().catch(() => ({}))
         if (!r.ok) throw new Error(body.error ?? `HTTP ${r.status}`)
@@ -91,7 +104,7 @@ export default function App() {
         setLoading(false)
       })
     return () => ctrl.abort()
-  }, [date])
+  }, [date, favoritesOnly])
 
   // slider top end: highest price in the data, rounded up to $5
   const bound = useMemo(() => {
@@ -150,7 +163,7 @@ export default function App() {
   }, [data, players, holes, from, to, maxDrive, lo, hi, excluded, searching, matchIds, sort])
 
   const byName = (a, b) => a.name.localeCompare(b.name)
-  const searchable = useMemo(() => (data?.courses ?? []).filter((c) => c.searchable).sort(byName), [data])
+  const searchable = useMemo(() => (data?.courses ?? []).filter((c) => c.searched).sort(byName), [data])
   const other = useMemo(() => (data?.courses ?? []).filter((c) => !c.searchable).sort(byName), [data])
 
   const courseCount = new Set(results.map((t) => t.courseId)).size
@@ -182,8 +195,8 @@ export default function App() {
             {matches.map((c) => {
               const n = perCourse.get(c.id) ?? 0
               return (
-                <li key={c.id} className={c.searchable ? 'pickable' : ''}>
-                  {c.searchable ? (
+                <li key={c.id} className={c.searched ? 'pickable' : ''}>
+                  {c.searched ? (
                     <button type="button" className="pick-row" onClick={() => pickCourse(c)}>
                       <div>
                         <strong>{c.name}</strong>
@@ -199,7 +212,9 @@ export default function App() {
                       <small>{c.city} · {c.driveMin} min · {c.system}</small>
                     </div>
                   )}
-                  {c.searchable ? null : c.bookingUrl ? (
+                  {c.searched ? null : c.searchable ? (
+                    <span className="tag">Not a favorite · turn off Favorites to search</span>
+                  ) : c.bookingUrl ? (
                     <a className="tag link" href={c.bookingUrl} target="_blank" rel="noreferrer">Not searchable here · book on their site ↗</a>
                   ) : (
                     <span className="tag">Not searchable · no online booking found</span>
@@ -208,6 +223,34 @@ export default function App() {
               )
             })}
           </ul>
+        )}
+      </div>
+
+      <div className="favbar">
+        <button type="button" className={favoritesOnly ? 'fav on' : 'fav'} aria-pressed={favoritesOnly} onClick={() => setFavoritesOnly((v) => !v)}>
+          <span aria-hidden="true">{favoritesOnly ? '★' : '☆'}</span> Favorites only
+        </button>
+        {favoritesOnly && data && (
+          <small>
+            Searching {data.courses.filter((c) => c.favorite && c.searched).length} favorite courses
+            {data.courses.some((c) => c.favorite && !c.searchable) && (
+              <>
+                {' · can’t search: '}
+                {data.courses
+                  .filter((c) => c.favorite && !c.searchable)
+                  .map((c, i) => (
+                    <span key={c.id}>
+                      {i > 0 && ', '}
+                      {c.bookingUrl ? (
+                        <a href={c.bookingUrl} target="_blank" rel="noreferrer">{c.name} ↗</a>
+                      ) : (
+                        c.name
+                      )}
+                    </span>
+                  ))}
+              </>
+            )}
+          </small>
         )}
       </div>
 

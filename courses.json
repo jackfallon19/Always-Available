@@ -171,7 +171,8 @@
     "verified": "verified 2026-09",
     "booking_window_days": null,
     "booking_source": "course site, system confirmed (user-supplied foreUP link; the TeeItUp engine it also has returns no tee times)",
-    "foreup_schedule_id": 12421
+    "foreup_schedule_id": 12421,
+    "favorite": true
   },
   {
     "id": "winnetka-golf-club-winnetka",
@@ -193,11 +194,12 @@
     "verified": "verified 2026-09",
     "booking_window_days": null,
     "booking_source": "course site, system not identified",
-    "golfnow_facility_id": 11729
+    "golfnow_facility_id": 11729,
+    "favorite": true
   },
   {
     "id": "white-pines-east-course-bensenville",
-    "name": "White Pines – East Course",
+    "name": "White Pines \u2013 East Course",
     "city": "Bensenville",
     "state": "IL",
     "type": "Daily-fee (public)",
@@ -220,7 +222,7 @@
   },
   {
     "id": "white-pines-west-course-bensenville",
-    "name": "White Pines – West Course",
+    "name": "White Pines \u2013 West Course",
     "city": "Bensenville",
     "state": "IL",
     "type": "Daily-fee (public)",
@@ -265,7 +267,7 @@
   },
   {
     "id": "harborside-port-course-chicago",
-    "name": "Harborside – Port Course",
+    "name": "Harborside \u2013 Port Course",
     "city": "Chicago",
     "state": "IL",
     "type": "Daily-fee (public)",
@@ -284,11 +286,12 @@
     "booking_window_days": null,
     "booking_source": "course site, system confirmed",
     "facility": "Harborside International Golf Center",
-    "golfnow_facility_id": 1108
+    "golfnow_facility_id": 1108,
+    "favorite": true
   },
   {
     "id": "harborside-starboard-course-chicago",
-    "name": "Harborside – Starboard Course",
+    "name": "Harborside \u2013 Starboard Course",
     "city": "Chicago",
     "state": "IL",
     "type": "Daily-fee (public)",
@@ -307,7 +310,8 @@
     "booking_window_days": null,
     "booking_source": "course site, system confirmed",
     "facility": "Harborside International Golf Center",
-    "golfnow_facility_id": 8964
+    "golfnow_facility_id": 8964,
+    "favorite": true
   },
   {
     "id": "glencoe-golf-club-glencoe",
@@ -328,7 +332,8 @@
     "notes": "Village of Glencoe 18",
     "verified": "verified 2026-09",
     "booking_window_days": null,
-    "booking_source": "course site, system confirmed"
+    "booking_source": "course site, system confirmed",
+    "favorite": true
   },
   {
     "id": "hickory-hills-cc-south-course-hickory-hills",
@@ -856,7 +861,8 @@
     "booking_window_days": null,
     "booking_source": "course site, system confirmed",
     "facility": "Cog Hill Golf & Country Club",
-    "foreup_schedule_id": 10960
+    "foreup_schedule_id": 10960,
+    "favorite": true
   },
   {
     "id": "cog-hill-no-2-ravines-lemont",
@@ -879,7 +885,8 @@
     "booking_window_days": null,
     "booking_source": "course site, system confirmed",
     "facility": "Cog Hill Golf & Country Club",
-    "foreup_schedule_id": 10961
+    "foreup_schedule_id": 10961,
+    "favorite": true
   },
   {
     "id": "cog-hill-no-3-lemont",
@@ -902,7 +909,8 @@
     "booking_window_days": null,
     "booking_source": "course site, system confirmed",
     "facility": "Cog Hill Golf & Country Club",
-    "foreup_schedule_id": 10962
+    "foreup_schedule_id": 10962,
+    "favorite": true
   },
   {
     "id": "cog-hill-no-4-dubsdread-lemont",
@@ -925,11 +933,12 @@
     "booking_window_days": null,
     "booking_source": "course site, system confirmed",
     "facility": "Cog Hill Golf & Country Club",
-    "foreup_schedule_id": 10963
+    "foreup_schedule_id": 10963,
+    "favorite": true
   },
   {
     "id": "gleneagles-red-course-lemont",
-    "name": "Gleneagles – Red Course",
+    "name": "Gleneagles \u2013 Red Course",
     "city": "Lemont",
     "state": "IL",
     "type": "Daily-fee (public)",
@@ -951,7 +960,7 @@
   },
   {
     "id": "gleneagles-white-course-lemont",
-    "name": "Gleneagles – White Course",
+    "name": "Gleneagles \u2013 White Course",
     "city": "Lemont",
     "state": "IL",
     "type": "Daily-fee (public)",
@@ -991,7 +1000,8 @@
     "verified": "verified 2026-09",
     "booking_window_days": null,
     "booking_source": "course site, system confirmed",
-    "golfnow_facility_id": 945
+    "golfnow_facility_id": 945,
+    "favorite": true
   },
   {
     "id": "george-w-dunne-national-oak-forest",
@@ -1061,7 +1071,7 @@
   },
   {
     "id": "silver-lake-north-course-orland-park",
-    "name": "Silver Lake – North Course",
+    "name": "Silver Lake \u2013 North Course",
     "city": "Orland Park",
     "state": "IL",
     "type": "Daily-fee (public)",
@@ -1084,7 +1094,7 @@
   },
   {
     "id": "silver-lake-south-course-orland-park",
-    "name": "Silver Lake – South Course",
+    "name": "Silver Lake \u2013 South Course",
     "city": "Orland Park",
     "state": "IL",
     "type": "Daily-fee (public)",
@@ -1125,7 +1135,8 @@
     "verified": "verified 2026-09",
     "booking_window_days": null,
     "booking_source": "course site, system confirmed",
-    "golfnow_facility_id": 827
+    "golfnow_facility_id": 827,
+    "favorite": true
   },
   {
     "id": "village-greens-of-woodridge-woodridge",
@@ -1456,7 +1467,7 @@
   },
   {
     "id": "st-andrews-st-andrews-course-west-chicago",
-    "name": "St. Andrews – St. Andrews Course",
+    "name": "St. Andrews \u2013 St. Andrews Course",
     "city": "West Chicago",
     "state": "IL",
     "type": "Daily-fee (public)",
@@ -1479,7 +1490,7 @@
   },
   {
     "id": "st-andrews-joe-jemsek-course-west-chicago",
-    "name": "St. Andrews – Joe Jemsek Course",
+    "name": "St. Andrews \u2013 Joe Jemsek Course",
     "city": "West Chicago",
     "state": "IL",
     "type": "Daily-fee (public)",
@@ -1654,7 +1665,7 @@
   },
   {
     "id": "green-garden-blue-course-frankfort",
-    "name": "Green Garden – Blue Course",
+    "name": "Green Garden \u2013 Blue Course",
     "city": "Frankfort",
     "state": "IL",
     "type": "Daily-fee (public)",
@@ -1676,7 +1687,7 @@
   },
   {
     "id": "green-garden-gold-course-frankfort",
-    "name": "Green Garden – Gold Course",
+    "name": "Green Garden \u2013 Gold Course",
     "city": "Frankfort",
     "state": "IL",
     "type": "Daily-fee (public)",
@@ -1720,7 +1731,7 @@
   },
   {
     "id": "countryside-prairie-course-mundelein",
-    "name": "Countryside – Prairie Course",
+    "name": "Countryside \u2013 Prairie Course",
     "city": "Mundelein",
     "state": "IL",
     "type": "County / Forest Preserve",
@@ -1742,7 +1753,7 @@
   },
   {
     "id": "countryside-traditional-course-mundelein",
-    "name": "Countryside – Traditional Course",
+    "name": "Countryside \u2013 Traditional Course",
     "city": "Mundelein",
     "state": "IL",
     "type": "County / Forest Preserve",
@@ -2957,7 +2968,7 @@
   },
   {
     "id": "brighton-dale-blue-spruce-course-kansasville",
-    "name": "Brighton Dale – Blue Spruce Course",
+    "name": "Brighton Dale \u2013 Blue Spruce Course",
     "city": "Kansasville",
     "state": "WI",
     "type": "County / Forest Preserve",
@@ -2979,7 +2990,7 @@
   },
   {
     "id": "brighton-dale-red-pine-course-kansasville",
-    "name": "Brighton Dale – Red Pine Course",
+    "name": "Brighton Dale \u2013 Red Pine Course",
     "city": "Kansasville",
     "state": "WI",
     "type": "County / Forest Preserve",
@@ -3020,6 +3031,7 @@
     "booking_window_days": 14,
     "booking_source": "course site, system confirmed",
     "teeitup_alias": "lost-marsh-golf-course",
-    "golfnow_facility_id": 10271
+    "golfnow_facility_id": 10271,
+    "favorite": true
   }
 ]
