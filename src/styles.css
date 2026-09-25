@@ -103,3 +103,9 @@ footer { margin-top: 20px; color: var(--muted); font-size: 13px; }
 .banner { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }
 .banner-actions { display: flex; gap: 8px; }
 .matches li.pickable .pick-row { flex: 1; width: auto; min-width: 0; }
+
+.favadd { margin-bottom: 10px; }
+.favadd input { width: 100%; font: 15px inherit; padding: 8px 10px; border: 1px solid var(--rule); border-radius: 8px; background: var(--bg); color: var(--ink); }
+.favadd .matches { margin-top: 6px; }
+.add-btn { flex: 0 0 auto; font: 13px inherit; padding: 6px 12px; border: 1px solid var(--accent); border-radius: 999px; background: none; color: var(--accent); cursor: pointer; }
+.add-btn:hover { background: var(--accent); color: var(--accent-ink); }

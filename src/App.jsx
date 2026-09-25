@@ -91,6 +91,7 @@ export default function App() {
     return Array.isArray(saved) ? cleanIds(saved) : null
   })
   const [showFavs, setShowFavs] = useState(false)
+  const [favAdd, setFavAdd] = useState('') // the "add a course" box in the favorites editor
   const [shareNote, setShareNote] = useState(null) // 'Link copied' or the link itself when copying is blocked
   // a favorites link someone sent: /?fav=id1,id2 (offered, never applied silently)
   const [incoming, setIncoming] = useState(() => {
@@ -170,6 +171,16 @@ export default function App() {
     () => [...favSet].map((id) => courseById.get(id)).filter(Boolean).sort((a, b) => a.name.localeCompare(b.name)),
     [favSet, courseById],
   )
+
+  // courses (not yet favorites) matching what was typed in the editor's "add a course" box
+  const addMatches = useMemo(() => {
+    const words = norm(favAdd).split(' ').filter(Boolean)
+    if (!words.length) return []
+    return (data?.courses ?? [])
+      .filter((c) => !favSet.has(c.id) && words.every((w) => norm(`${c.name} ${c.city}`).includes(w)))
+      .sort((a, b) => a.name.localeCompare(b.name))
+      .slice(0, 8)
+  }, [data, favAdd, favSet])
 
   // a shared list may name courses we don't have; only offer (and apply) the ones we do
   const incomingValid = useMemo(() => (incoming ?? []).filter((id) => courseById.has(id)), [incoming, courseById])
@@ -371,6 +382,35 @@ export default function App() {
 
       {showFavs && data && (
         <section className="favpanel">
+          <div className="favadd">
+            <input
+              type="search"
+              value={favAdd}
+              onChange={(e) => setFavAdd(e.target.value)}
+              placeholder="Add a course to favorites (type a name or town)"
+              aria-label="Add a course to favorites"
+            />
+            {favAdd.trim() && (
+              <ul className="matches">
+                {addMatches.length === 0 && (
+                  <li className="none">
+                    {favCourses.some((c) => norm(`${c.name} ${c.city}`).includes(norm(favAdd)))
+                      ? 'Already in your favorites.'
+                      : `No course matches “${favAdd.trim()}”.`}
+                  </li>
+                )}
+                {addMatches.map((c) => (
+                  <li key={c.id}>
+                    <div>
+                      <strong>{c.name}</strong>
+                      <small>{c.city} · {c.driveMin} min · {c.searchable ? c.system : 'not searchable here'}</small>
+                    </div>
+                    <button type="button" className="add-btn" onClick={() => toggleFav(c.id)}>☆ Add</button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
           {favCourses.length === 0 ? (
             <p className="sub">No favorites yet. Tap ☆ on any course in the search results or the course finder.</p>
           ) : (
