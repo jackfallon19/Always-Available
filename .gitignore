@@ -1,0 +1,10 @@
+# Dependencies and build output
+node_modules
+dist
+
+# Local Netlify state
+.netlify
+deno.lock
+
+# OS / editor
+.DS_Store
